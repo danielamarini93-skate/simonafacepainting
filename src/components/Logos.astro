@@ -14,6 +14,6 @@ const get = (f: string) => Object.entries(files).find(([p]) => p.endsWith(f))![1
 <style>
   .logos { text-align: center; }
   ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(18px, 4vw, 48px); }
-  li :global(img) { height: 52px; width: auto; mix-blend-mode: multiply; filter: grayscale(1); opacity: .75; transition: .3s; }
-  li:hover :global(img) { filter: none; opacity: 1; }
+  li :global(img) { height: 52px; width: auto; mix-blend-mode: screen; filter: grayscale(1) invert(1); opacity: .7; transition: .3s; }
+  li:hover :global(img) { opacity: 1; }
 </style>

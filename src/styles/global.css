@@ -8,20 +8,23 @@
 
 /* ---------- Tokens (Simona's brand: black, magenta, mint-white) ---------- */
 :root {
+  color-scheme: dark;
   --ink: #0c0a0e;
   --ink-2: #15121a;
   --ink-3: #201b26;
   --line-dark: rgba(243, 250, 243, 0.12);
   --pearl: #f3faf3;
-  --cream: #faf7f4;
-  --paper: #ffffff;
-  --text: #1d1a21;
-  --muted: #5f5866;
+  --cream: #09080b;   /* page background */
+  --paper: #141118;   /* cards */
+  --raise: #100e13;   /* alternate sections */
+  --text: #f1ecf3;
+  --muted: #b3abba;
   --muted-on-dark: #bdb6c4;
-  --line: #e8e2ea;
+  --line: rgba(243, 250, 243, 0.11);
   --pink: #e934e8;
-  --pink-deep: #b81fb7;
-  --pink-soft: #fbe4fb;
+  --pink-deep: #c42ac3;
+  --pink-soft: rgba(233, 52, 232, 0.14);
+  --pink-text: #ff8cf4;
   --blue: #4b6e91;
   --gold: #d9b36c;
   --wa: #25d366;
@@ -69,8 +72,11 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .section { padding-block: var(--section); }
 .section--dark { background: var(--ink); color: var(--pearl); }
 .section--dark .muted, .section--dark .lead { color: var(--muted-on-dark); }
-.section--pearl { background: var(--pearl); }
-.section--white { background: var(--paper); }
+.section--pearl { background: var(--raise); border-block: 1px solid var(--line); }
+.section--white { background: var(--raise); border-block: 1px solid var(--line); }
+.section--dark { background: var(--ink); }
+::selection { background: var(--pink); color: #fff; }
+.prose a, .card a:not(.btn) { color: var(--pink-text); }
 .center { text-align: center; }
 .center .lead { margin-inline: auto; }
 .muted { color: var(--muted); }
@@ -79,7 +85,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 0.6em;
   font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--pink-deep); margin-bottom: 1rem;
+  color: var(--pink-text); margin-bottom: 1rem;
 }
 .section--dark .eyebrow { color: #ff8af0; }
 .eyebrow::before { content: ''; width: 28px; height: 1px; background: currentColor; }
@@ -91,7 +97,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 
 /* ---------- Buttons ---------- */
 .btn {
-  --bg: var(--ink); --fg: #fff;
+  --bg: var(--pearl); --fg: var(--ink);
   display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
   min-height: 52px; padding: 0.85em 1.6em;
   background: var(--bg); color: var(--fg);
@@ -99,7 +105,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   font: 600 0.95rem/1 var(--font-body); letter-spacing: 0.04em; text-decoration: none;
   cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(0,0,0,.45); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(233,52,232,.45); }
 .btn svg { width: 1.25em; height: 1.25em; flex: none; }
 .btn--wa { --bg: var(--wa-deep); --fg: #fff; }
 .btn--wa:hover { --bg: #0f7a40; }

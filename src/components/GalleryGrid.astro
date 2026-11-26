@@ -1,8 +1,9 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import { CATEGORY_LABELS, type GalleryItem, type Category } from '../lib/gallery';
 interface Props { items: GalleryItem[]; filters?: boolean; id?: string; }
 const { items, filters = false, id = 'gallery' } = Astro.props;
+const fulls = await Promise.all(items.map((i) => getImage({ src: i.src, width: Math.min(1400, i.src.width), format: 'webp', quality: 78 })));
 const cats = [...new Set(items.map((i) => i.category))] as Category[];
 ---
 <div class="gallery" data-gallery id={id}>
@@ -15,8 +16,8 @@ const cats = [...new Set(items.map((i) => i.category))] as Category[];
   <ul class="masonry">
     {items.map((item, i) => (
       <li data-category={item.category}>
-        <a href={item.src.src} data-full={item.src.src} aria-label={`Enlarge: ${item.alt}`}>
-          <Image src={item.src} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 1100px) 280px, (min-width: 700px) 33vw, 50vw" loading={i < 4 ? 'eager' : 'lazy'} quality={72} />
+        <a href={fulls[i].src} aria-label={`Enlarge: ${item.alt}`}>
+          <Image src={item.src} alt={item.alt} widths={[400, 720]} sizes="(min-width: 1100px) 280px, (min-width: 700px) 33vw, 50vw" loading={i < 4 ? 'eager' : 'lazy'} />
         </a>
       </li>
     ))}
@@ -48,10 +49,7 @@ const cats = [...new Set(items.map((i) => i.category))] as Category[];
     const show = (i: number) => {
       const list = visible(); idx = (i + list.length) % list.length;
       const a = list[idx].querySelector('a')!; const thumb = a.querySelector('img')!;
-      img.src = thumb.currentSrc || a.href; img.alt = thumb.alt; cap.textContent = thumb.alt;
-      // upgrade to the largest generated size
-      const srcs = thumb.srcset?.split(',').map((s) => s.trim().split(' ')[0]);
-      if (srcs?.length) img.src = srcs[srcs.length - 1];
+      img.src = a.href; img.alt = thumb.alt; cap.textContent = thumb.alt;
     };
     items.forEach((li) => li.querySelector('a')!.addEventListener('click', (e) => {
       e.preventDefault(); show(visible().indexOf(li)); dlg.showModal();
@@ -71,7 +69,7 @@ const cats = [...new Set(items.map((i) => i.category))] as Category[];
   .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
   .filters button { font: 500 .92rem var(--font-body); padding: 10px 18px; min-height: 44px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--text); cursor: pointer; transition: .2s; }
   .filters button span { opacity: .55; font-size: .8em; margin-left: 4px; }
-  .filters button[aria-pressed='true'] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .filters button[aria-pressed='true'] { background: var(--pink); color: #fff; border-color: var(--pink); }
   .filters button:hover { border-color: var(--pink); }
   .masonry { list-style: none; margin: 0; padding: 0; columns: 2 160px; column-gap: 12px; }
   @media (min-width: 700px) { .masonry { columns: 3; column-gap: 16px; } }

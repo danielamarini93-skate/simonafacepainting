@@ -16,7 +16,7 @@ const { eyebrow, title, lead, image, imageAlt = '', crumbs = [], cta = true } = 
       {lead && <p class="lead">{lead}</p>}
       {cta && <div class="btn-row"><WhatsAppButton label="Get a quote on WhatsApp" /><slot name="actions" /></div>}
     </div>
-    {image && <div class="art"><Image src={image} alt={imageAlt} widths={[400, 640, 900]} sizes="(min-width: 900px) 440px, 90vw" loading="eager" fetchpriority="high" /></div>}
+    {image && <div class="art"><Image src={image} alt={imageAlt} widths={[400, 720]} sizes="(min-width: 900px) 440px, 90vw" loading="eager" fetchpriority="high" /></div>}
   </div>
 </section>
 <style>
