@@ -7,7 +7,7 @@ interface Props { exclude?: string; images?: Record<string, string>; }
 const { exclude, images = {} } = Astro.props;
 const list = services.filter((s) => s.slug !== exclude);
 // where to centre each photo inside the card (x% y%)
-const FOCUS: Record<string, string> = { 'adults-8b7c9753.jpg': '50% 80%' };
+const FOCUS: Record<string, string> = {};
 const imgFor = (s: (typeof services)[number]) => (images[s.slug] && byFile(images[s.slug])) || pick({ categories: s.gallery, featured: true, limit: 1 })[0];
 ---
 <div class="svc-wrap" data-carousel>
