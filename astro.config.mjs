@@ -1,0 +1,10 @@
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  site: 'https://simonafacepainting.co.uk',
+  trailingSlash: 'always',
+  integrations: [sitemap({ filter: (p) => !p.includes('/thanks/') })],
+  image: { layout: 'constrained' },
+  build: { inlineStylesheets: 'auto' },
+});

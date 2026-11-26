@@ -1,0 +1,22 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import Icon from './Icon.astro';
+import { site } from '../lib/site';
+interface Props { title?: string; text?: string; }
+const { title = 'Let’s add some sparkle to your event', text = 'Tell us your date, area and number of guests on WhatsApp and Simona will reply with availability and a quote, usually the same day.' } = Astro.props;
+---
+<section class="cta section section--dark">
+  <div class="wrap center narrow">
+    <p class="eyebrow">Check availability</p>
+    <h2>{title}</h2>
+    <p class="lead">{text}</p>
+    <div class="btn-row">
+      <WhatsAppButton />
+      <a class="btn btn--ghost" href={site.phoneHref}><Icon name="phone" /> Call {site.phoneDisplay}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .cta { position: relative; overflow: hidden; background: radial-gradient(1200px 400px at 50% 120%, rgba(233,52,232,.35), transparent 70%), var(--ink); }
+  .cta h2 { font-size: clamp(1.9rem, 3.6vw, 3rem); }
+</style>

@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import { trust } from '../data/content';
+interface Props { dark?: boolean }
+const { dark = false } = Astro.props;
+---
+<ul class:list={['trust', { dark }]}>
+  {trust.map((t) => <li><span class="ic"><Icon name="check" /></span><span><strong>{t.title}</strong><small>{t.text}</small></span></li>)}
+</ul>
+<style>
+  .trust { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 900px) { .trust { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 899px) { .trust li { flex-direction: column; align-items: flex-start; gap: 8px; } }
+  .trust li { display: flex; gap: 12px; align-items: center; }
+  .ic { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--pink-soft); color: var(--pink-deep); flex: none; }
+  .ic :global(svg) { width: 20px; height: 20px; }
+  strong { display: block; font-weight: 600; line-height: 1.2; }
+  small { color: var(--muted); font-size: .85rem; line-height: 1.3; display: block; }
+  .dark small { color: var(--muted-on-dark); }
+  .dark .ic { background: rgba(233,52,232,.16); color: #ff9cf3; }
+</style>

@@ -1,0 +1,41 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Old WordPress pages that no longer exist
+[[redirects]]
+  from = "/landing-1/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/landing-2/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/landing-3/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/amen/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/feed/*"
+  to = "/"
+  status = 301
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"

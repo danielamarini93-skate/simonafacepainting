@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/services';
+import { breadcrumbSchema } from '../../lib/schema';
+---
+<Base title="Face Painting, Glitter Bar & Glitter Tattoo Services in London" description="Face painting for children and adults, glitter bar hire, glitter tattoos and seasonal themed face painting for parties, weddings, festivals and corporate events in London." schema={[breadcrumbSchema([{ name: 'Services', path: '/services/' }])]}>
+  <PageHero eyebrow="Services" title="Face painting & glitter art for every celebration" lead="Choose one service or combine them. Face painting and glitter tattoos together keep queues moving at busy events." crumbs={[{ name: 'Services', path: '/services/' }]} />
+  <section class="section section--dark" style="padding-top:0">
+    <div class="wrap">
+      <ServiceCards images={{ 'face-painting-children-adults': 'adults-8b7c9753.jpg', 'childrens-face-painting': 'kids-c0bd6932.jpg', 'glitter-bar-kids-adults': 'glitter-bar-642f25d3.jpg', 'glitter-tattoos-children-adults': 'glitter-tattoos-54f2e9e4.jpg', 'seasonal-themed-events': 'seasonal-b09d8866.jpg' }} />
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid grid-2">
+      {services.map((s) => (
+        <article class="card">
+          <h2 class="h3"><a href={`/services/${s.slug}/`}>{s.title}</a></h2>
+          <p class="muted">{s.intro[0]}</p>
+          <a href={`/services/${s.slug}/`}>Learn more →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .h3 { font-size: 1.35rem; }
+  .h3 a { text-decoration: none; }
+  article a:last-child { font-weight: 600; color: var(--pink-deep); }
+</style>

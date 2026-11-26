@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import { site, whatsappUrl } from '../lib/site';
+import { services } from '../data/services';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <p class="display brand">Simona's Face Painting</p>
+      <p class="muted-dark">Face painting, glitter bar & glitter tattoos for children and adults across London and the surrounding areas.</p>
+      <div class="social">
+        <a href={site.instagram} target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" /></a>
+        <a href={site.facebook} target="_blank" rel="noopener" aria-label="Facebook"><Icon name="facebook" /></a>
+        <a href={site.googleMaps} target="_blank" rel="noopener" aria-label="Google reviews"><Icon name="star" /></a>
+      </div>
+    </div>
+    <div>
+      <p class="h">Services</p>
+      <ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}</ul>
+    </div>
+    <div>
+      <p class="h">Explore</p>
+      <ul>
+        <li><a href="/gallery/">Gallery</a></li>
+        <li><a href="/pricing/">Pricing</a></li>
+        <li><a href="/areas-we-cover/">Areas we cover</a></li>
+        <li><a href="/about/">About Simona</a></li>
+        <li><a href="/faqs/">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h">Get in touch</p>
+      <ul class="contact">
+        <li><a href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp"><Icon name="whatsapp" /> WhatsApp</a></li>
+        <li><a href={site.phoneHref}><Icon name="phone" /> {site.phoneDisplay}</a></li>
+        <li><a href={`mailto:${site.email}`}><Icon name="mail" /> {site.email}</a></li>
+        <li><span><Icon name="pin" /> London & surrounding areas</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal">
+    <p>© {year} Simona's Face Painting. DBS checked & fully insured.</p>
+    <p><a href="/privacy-policy/">Privacy Policy</a> · <a href="/terms-conditions/">Terms & Conditions</a></p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--ink); color: var(--pearl); padding: 72px 0 110px; border-top: 1px solid var(--line-dark); }
+  .cols { display: grid; gap: 36px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  .cols > :first-child { grid-column: span 1; }
+  @media (min-width: 900px) { .cols { grid-template-columns: 1.4fr 1fr 1fr 1.3fr; } }
+  .brand { font-size: 1.4rem; margin-bottom: .4em; }
+  .muted-dark { color: var(--muted-on-dark); font-size: .95rem; max-width: 34ch; }
+  .h { font-family: var(--font-head); letter-spacing: .14em; text-transform: uppercase; font-size: .8rem; color: #ff9cf3; margin-bottom: .8em; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { margin-bottom: .45em; }
+  a { text-decoration: none; color: var(--pearl); opacity: .88; }
+  a:hover { opacity: 1; color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+  .contact a, .contact span { display: inline-flex; gap: 10px; align-items: center; overflow-wrap: anywhere; font-size: .95rem; }
+  .contact :global(svg) { width: 18px; height: 18px; flex: none; }
+  .social { display: flex; gap: 10px; margin-top: 18px; }
+  .social a { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-dark); opacity: 1; }
+  .social a:hover { background: var(--pink); border-color: var(--pink); text-decoration: none; }
+  .social :global(svg) { width: 20px; height: 20px; }
+  .legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line-dark); font-size: .85rem; color: var(--muted-on-dark); }
+  .legal p { margin: 0; }
+</style>

@@ -1,0 +1,26 @@
+---
+import type { Faq } from '../data/content';
+interface Props { items: Faq[] }
+const { items } = Astro.props;
+---
+<div class="faq">
+  {items.map((f) => (
+    <details id={f.id}>
+      <summary><h3>{f.q}</h3><span class="pm" aria-hidden="true"></span></summary>
+      <div class="a">{f.a.map((p) => <p>{p}</p>)}</div>
+    </details>
+  ))}
+</div>
+<style>
+  .faq { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 20px 0; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  summary h3 { margin: 0; font-family: var(--font-body); font-weight: 600; font-size: 1.05rem; letter-spacing: 0; }
+  .pm { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); flex: none; position: relative; }
+  .pm::before, .pm::after { content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: currentColor; transform: translate(-50%,-50%); transition: .25s; }
+  .pm::after { transform: translate(-50%,-50%) rotate(90deg); }
+  details[open] .pm::after { transform: translate(-50%,-50%) rotate(0); }
+  details[open] .pm { background: var(--pink); border-color: var(--pink); color: #fff; }
+  .a { padding: 0 0 18px; color: var(--muted); max-width: 70ch; }
+</style>

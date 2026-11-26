@@ -1,0 +1,36 @@
+name: Process new photos & videos
+
+# Upload phone photos/videos into incoming/<category>/ (via github.com → Add file → Upload files).
+# This workflow converts them for the web, strips location data, adds them to the gallery,
+# deletes the originals and commits the result. Netlify then redeploys the site.
+on:
+  push:
+    paths: ['incoming/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: process-media
+  cancel-in-progress: false
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - run: npm ci
+      - run: npm run media
+      - run: npm test
+      - name: Commit processed media
+        run: |
+          git config user.name "media-bot"
+          git config user.email "media-bot@users.noreply.github.com"
+          git add -A src/assets/gallery src/data public/video incoming
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "Add new gallery media"
+          git push

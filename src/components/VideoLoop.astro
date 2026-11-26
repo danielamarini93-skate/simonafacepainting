@@ -1,0 +1,17 @@
+---
+import videos from '../data/videos.json';
+interface Props { id: string; class?: string; eager?: boolean; }
+const { id, class: cls = '', eager = false } = Astro.props;
+const v = videos.find((x) => x.id === id)!;
+---
+<figure class={`video-loop ${cls}`}>
+  {eager ? (
+    <video data-loop src={v.src} poster={v.poster} muted loop playsinline autoplay preload="auto" width={v.width} height={v.height} aria-label={v.title}></video>
+  ) : (
+    <video data-loop data-src={v.src} poster={v.poster} muted loop playsinline preload="none" width={v.width} height={v.height} aria-label={v.title}></video>
+  )}
+</figure>
+<style>
+  .video-loop { margin: 0; position: relative; overflow: hidden; border-radius: var(--radius-lg); background: var(--ink-3); }
+  .video-loop video { width: 100%; height: 100%; object-fit: cover; }
+</style>

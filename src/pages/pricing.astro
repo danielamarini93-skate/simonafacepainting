@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { pricing, getFaqs } from '../data/content';
+import { faqSchema, breadcrumbSchema } from '../lib/schema';
+const faqs = getFaqs(['minimum-booking', 'faces-per-hour', 'planning', 'packages', 'setup', 'areas']);
+const included = ['Professional face paints, cosmetic glitters & make-up', 'All brushes, sponges & hygiene supplies', 'Design boards for guests to choose from', 'Friendly, DBS-checked & insured artist', 'Set-up and pack-down (not counted in your booked time)'];
+---
+<Base title="Face Painting Prices London | Parties from £160" description="Face painting prices in London: private parties from £160 (2 hrs), corporate events from £190 and weddings from £320. All materials included. Get a tailored quote on WhatsApp." schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Pricing', path: '/pricing/' }])]}>
+  <PageHero eyebrow="Pricing" title="Simple, transparent pricing" lead="All prices include make-up, face paints, cosmetic glitters and materials. Every event is different, so message us for a tailored quote." crumbs={[{ name: 'Pricing', path: '/pricing/' }]} />
+
+  <section class="section">
+    <div class="wrap">
+      <ul class="plans">
+        {pricing.map((p) => (
+          <li class:list={['plan', { popular: p.popular }]} data-reveal>
+            {p.popular && <span class="tag">Most booked</span>}
+            <h2>{p.name}</h2>
+            <p class="price"><small>from</small> £{p.price}</p>
+            <ul class="facts">
+              <li><Icon name="check" /> Minimum {p.hours} hours</li>
+              <li><Icon name="check" /> {p.guests}</li>
+            </ul>
+            <p class="muted">{p.text}</p>
+            <WhatsAppButton label="Get a quote" message={`Hi Simona! I'd like a quote for a ${p.name.toLowerCase().replace(/s$/, '')}.\nDate: \nArea / postcode: \nNumber of guests: `} />
+          </li>
+        ))}
+      </ul>
+      <p class="center muted note">Glitter bar, glitter tattoos, extra artists and themed packages are quoted per event. A small travel fee may apply outside our usual areas.</p>
+    </div>
+  </section>
+
+  <section class="section section--pearl">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Application time</p>
+        <h2>How many guests can we paint?</h2>
+        <p>One artist typically creates around <strong>10 detailed designs per hour</strong>, or up to <strong>15 quick designs per hour</strong>, so each guest enjoys a personalised look in just 2–4 minutes. For bigger events we can bring additional artists.</p>
+        <p class="muted">(Not applicable to special commissions such as full-face Halloween special effects.)</p>
+      </div>
+      <div class="card" data-reveal>
+        <p class="eyebrow">Always included</p>
+        <ul class="inc">{included.map((i) => <li><Icon name="check" /> {i}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap grid grid-3 why">
+      <div><h3>Seamless experience</h3><p class="muted">From first message to final flourish, we keep things clear, quick and easy.</p></div>
+      <div><h3>Professional expertise</h3><p class="muted">Our artists have painted at hundreds of events, from back-garden birthdays to brand activations.</p></div>
+      <div><h3>Speed & precision</h3><p class="muted">Even with larger guest numbers, designs are completed quickly without compromising quality.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow">
+      <p class="eyebrow">Booking questions</p>
+      <h2>Good to know</h2>
+      <FaqList items={faqs} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .plans { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .plan { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 36px 30px; border-radius: var(--radius-lg); background: var(--paper); border: 1px solid var(--line); }
+  .plan.popular { background: var(--ink); color: var(--pearl); border-color: var(--ink); box-shadow: 0 30px 70px -30px rgba(233,52,232,.55); }
+  .plan.popular .muted { color: var(--muted-on-dark); }
+  .tag { position: absolute; top: 18px; right: 18px; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; background: var(--pink); color: #fff; padding: 6px 12px; border-radius: 999px; }
+  .plan h2 { font-size: 1.5rem; margin: 0; }
+  .price { font-family: var(--font-head); font-size: 3rem; line-height: 1; margin: 12px 0; }
+  .price small { font-family: var(--font-body); font-size: .9rem; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+  .facts, .inc { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 8px; }
+  .facts li, .inc li { display: flex; gap: 10px; align-items: flex-start; }
+  .facts :global(svg), .inc :global(svg) { width: 18px; height: 18px; color: var(--pink); flex: none; margin-top: 5px; }
+  .plan :global(.btn) { margin-top: auto; }
+  .plan .muted { flex: 1; }
+  .note { margin-top: 32px; max-width: 70ch; margin-inline: auto; }
+</style>

@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import { CATEGORY_LABELS, type GalleryItem, type Category } from '../lib/gallery';
+interface Props { items: GalleryItem[]; filters?: boolean; id?: string; }
+const { items, filters = false, id = 'gallery' } = Astro.props;
+const cats = [...new Set(items.map((i) => i.category))] as Category[];
+---
+<div class="gallery" data-gallery id={id}>
+  {filters && (
+    <div class="filters" role="group" aria-label="Filter gallery">
+      <button type="button" aria-pressed="true" data-filter="all">All <span>{items.length}</span></button>
+      {cats.map((c) => <button type="button" aria-pressed="false" data-filter={c}>{CATEGORY_LABELS[c]} <span>{items.filter((i) => i.category === c).length}</span></button>)}
+    </div>
+  )}
+  <ul class="masonry">
+    {items.map((item, i) => (
+      <li data-category={item.category}>
+        <a href={item.src.src} data-full={item.src.src} aria-label={`Enlarge: ${item.alt}`}>
+          <Image src={item.src} alt={item.alt} widths={[360, 540, 720]} sizes="(min-width: 1100px) 280px, (min-width: 700px) 33vw, 50vw" loading={i < 4 ? 'eager' : 'lazy'} quality={72} />
+        </a>
+      </li>
+    ))}
+  </ul>
+  <dialog class="lightbox" aria-label="Photo viewer">
+    <button type="button" class="lb-close" aria-label="Close">×</button>
+    <button type="button" class="lb-prev" aria-label="Previous photo">‹</button>
+    <img alt="" />
+    <button type="button" class="lb-next" aria-label="Next photo">›</button>
+    <p class="lb-cap"></p>
+  </dialog>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
+    const buttons = root.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const items = [...root.querySelectorAll<HTMLLIElement>('.masonry li')];
+    buttons.forEach((b) => b.addEventListener('click', () => {
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const f = b.dataset.filter;
+      items.forEach((li) => (li.hidden = f !== 'all' && li.dataset.category !== f));
+    }));
+
+    const dlg = root.querySelector('dialog')!;
+    const img = dlg.querySelector('img')!;
+    const cap = dlg.querySelector('.lb-cap')!;
+    let idx = 0;
+    const visible = () => items.filter((li) => !li.hidden);
+    const show = (i: number) => {
+      const list = visible(); idx = (i + list.length) % list.length;
+      const a = list[idx].querySelector('a')!; const thumb = a.querySelector('img')!;
+      img.src = thumb.currentSrc || a.href; img.alt = thumb.alt; cap.textContent = thumb.alt;
+      // upgrade to the largest generated size
+      const srcs = thumb.srcset?.split(',').map((s) => s.trim().split(' ')[0]);
+      if (srcs?.length) img.src = srcs[srcs.length - 1];
+    };
+    items.forEach((li) => li.querySelector('a')!.addEventListener('click', (e) => {
+      e.preventDefault(); show(visible().indexOf(li)); dlg.showModal();
+    }));
+    dlg.querySelector('.lb-close')!.addEventListener('click', () => dlg.close());
+    dlg.querySelector('.lb-prev')!.addEventListener('click', () => show(idx - 1));
+    dlg.querySelector('.lb-next')!.addEventListener('click', () => show(idx + 1));
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1); });
+    let x0 = 0;
+    dlg.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+    dlg.addEventListener('touchend', (e) => { const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1)); });
+  });
+</script>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
+  .filters button { font: 500 .92rem var(--font-body); padding: 10px 18px; min-height: 44px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--text); cursor: pointer; transition: .2s; }
+  .filters button span { opacity: .55; font-size: .8em; margin-left: 4px; }
+  .filters button[aria-pressed='true'] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .filters button:hover { border-color: var(--pink); }
+  .masonry { list-style: none; margin: 0; padding: 0; columns: 2 160px; column-gap: 12px; }
+  @media (min-width: 700px) { .masonry { columns: 3; column-gap: 16px; } }
+  @media (min-width: 1100px) { .masonry { columns: 4; } }
+  .masonry li { break-inside: avoid; margin-bottom: 12px; }
+  @media (min-width: 700px) { .masonry li { margin-bottom: 16px; } }
+  .masonry li[hidden] { display: none; }
+  .masonry a { display: block; overflow: hidden; border-radius: 14px; background: var(--line); }
+  .masonry :global(img) { width: 100%; height: auto; transition: transform .6s ease; }
+  .masonry a:hover :global(img) { transform: scale(1.04); }
+
+  .lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100dvh; width: 100vw; height: 100dvh; margin: 0; }
+  .lightbox::backdrop { background: rgba(8,6,10,.94); }
+  .lightbox[open] { display: grid; place-items: center; }
+  .lightbox img { max-width: min(92vw, 1100px); max-height: 82dvh; width: auto; height: auto; border-radius: 12px; }
+  .lb-cap { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; color: var(--pearl); font-size: .9rem; margin: 0; padding: 0 60px; }
+  .lightbox button { position: absolute; background: rgba(255,255,255,.1); color: #fff; border: 0; width: 52px; height: 52px; border-radius: 50%; font-size: 30px; line-height: 1; cursor: pointer; }
+  .lightbox button:hover { background: var(--pink); }
+  .lb-close { top: 16px; right: 16px; }
+  .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+</style>

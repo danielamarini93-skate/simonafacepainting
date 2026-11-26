@@ -1,0 +1,5 @@
+[
+  { "id": "butterfly", "src": "/video/butterfly.mp4", "poster": "/video/butterfly.webp", "title": "Painting a rainbow butterfly at a summer party", "category": "kids", "width": 478, "height": 850 },
+  { "id": "kit", "src": "/video/kit.mp4", "poster": "/video/kit.webp", "title": "Simona's professional face painting kit", "category": "corporate", "width": 540, "height": 960 },
+  { "id": "reindeer", "src": "/video/reindeer.mp4", "poster": "/video/reindeer.webp", "title": "Christmas reindeer face paint", "category": "seasonal", "width": 540, "height": 960 }
+]

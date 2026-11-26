@@ -1,0 +1,207 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import VideoLoop from '../components/VideoLoop.astro';
+import Reviews from '../components/Reviews.astro';
+import Logos from '../components/Logos.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { pick, byFile } from '../lib/gallery';
+import { boroughs } from '../data/content';
+import simona from '../assets/brand/simona.jpg';
+
+const highlights = pick({ featured: true }).filter((g) => g.featured).slice(0, 12);
+const cardImages = {
+  'face-painting-children-adults': 'adults-8b7c9753.jpg',
+  'childrens-face-painting': 'kids-c0bd6932.jpg',
+  'glitter-bar-kids-adults': 'glitter-bar-642f25d3.jpg',
+  'glitter-tattoos-children-adults': 'glitter-tattoos-54f2e9e4.jpg',
+  'seasonal-themed-events': 'seasonal-b09d8866.jpg',
+};
+const floral = byFile('adults-78a94b70.jpg')!;
+---
+<Base
+  title="Face Painter London | Face Painting & Glitter Art | Simona's Face Painting"
+  description="Beautiful hand-painted face painting, glitter bar and glitter tattoos for kids’ parties, weddings, festivals and corporate events across London. DBS checked & insured. Message us on WhatsApp."
+  heroOverlay
+>
+  <link slot="head" rel="preload" as="image" href="/video/butterfly.webp" fetchpriority="high" />
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <video data-loop src="/video/butterfly.mp4" poster="/video/butterfly.webp" muted loop playsinline autoplay preload="metadata" width="478" height="850" aria-label="Simona painting a rainbow butterfly on a child's face"></video>
+    </div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">London face painter & glitter artist</p>
+        <h1>
+          <span class="display">Simona's</span>
+          <span class="h1-sub">Face Painting & Glitter Art</span>
+        </h1>
+        <p class="lead">Adding colour, sparkle and smiles to every celebration. Hand-painted designs for children and adults at parties, weddings, festivals and corporate events across London.</p>
+        <div class="btn-row">
+          <WhatsAppButton label="Get a quote on WhatsApp" />
+          <a class="btn btn--ghost" href="/gallery/">See the gallery <Icon name="arrow" /></a>
+        </div>
+        <p class="hero-rating"><span class="stars">★★★★★</span> 5.0 on Google · DBS checked · Fully insured</p>
+      </div>
+      <div class="hero-frame" aria-hidden="true">
+        <video data-loop src="/video/butterfly.mp4" poster="/video/butterfly.webp" muted loop playsinline autoplay preload="metadata" width="478" height="850"></video>
+        <span class="chip chip-1"><Icon name="sparkle" /> Skin-safe paints</span>
+        <span class="chip chip-2"><Icon name="sparkle" /> Eco glitter</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="section--white trust-band">
+    <div class="wrap"><TrustStrip /></div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Bring your event to life</p>
+        <h2>Every guest leaves glowing, and every face tells a story</h2>
+        <p>From the moment your guests sit in our chair, they're treated like the stars of the show. Whether it's a whimsical butterfly, a fierce superhero mask or a shimmer of glitter, each design is painted with care, skill and a dash of fun.</p>
+        <p>Simona and her team bring professional face painting, a dazzling glitter bar and long-lasting glitter tattoos to birthday parties, school fairs, weddings, festivals and corporate events, with designs matched to your theme and guests of every age.</p>
+        <ul class="ticks">
+          <li><Icon name="check" /> Quick and efficient, so even big groups stay happy</li>
+          <li><Icon name="check" /> Face painting, glitter tattoos, or a combo of both</li>
+          <li><Icon name="check" /> Multiple artists available for large events</li>
+        </ul>
+      </div>
+      <div class="intro-art" data-reveal>
+        <Image src={floral.src} alt={floral.alt} widths={[420, 640, 860]} sizes="(min-width: 900px) 480px, 90vw" class="a1" />
+        <Image src={simona} alt="Simona at a Pret A Manger corporate event" widths={[300, 460]} sizes="(min-width: 900px) 240px, 45vw" class="a2" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Services</p>
+        <h2>Colour and sparkle for every kind of celebration</h2>
+      </div>
+      <ServiceCards images={cardImages} />
+    </div>
+  </section>
+
+  <!-- GALLERY HIGHLIGHTS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Portfolio</p>
+        <h2>A few recent favourites</h2>
+        <p class="lead">Every design is hand-painted by Simona and her artists at real London parties and events.</p>
+      </div>
+      <GalleryGrid items={highlights} id="highlights" />
+      <div class="center more"><a class="btn" href="/gallery/">View the full gallery <Icon name="arrow" /></a></div>
+    </div>
+  </section>
+
+  <!-- AT WORK (video) -->
+  <section class="section section--pearl">
+    <div class="wrap split split--flip">
+      <div data-reveal>
+        <p class="eyebrow">Behind the brush</p>
+        <h2>A professional kit, a steady hand and a lot of patience</h2>
+        <p>We arrive about 15 minutes early, set up a clean, colourful station and get painting. Our professional, FDA and EU-approved paints and cosmetic-grade glitters are applied with fresh sponges and sanitised brushes for every guest.</p>
+        <p>One artist paints around 10 detailed designs an hour, or up to 15 quick designs for busy events, so queues keep moving and nobody misses out.</p>
+        <div class="btn-row"><a class="btn btn--pink" href="/pricing/">See prices</a><a class="btn btn--ghost" href="/faqs/">Read the FAQs</a></div>
+      </div>
+      <div class="duo" data-reveal>
+        <VideoLoop id="kit" />
+        <VideoLoop id="reindeer" />
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Kind words</p>
+        <h2>“We can't call her a face painter, she's an artist!”</h2>
+      </div>
+      <Reviews />
+      <div class="logos-wrap"><Logos /></div>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section class="section">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Areas we cover</p>
+        <h2>Face painting across London & beyond</h2>
+        <p>Based in London, we travel up to about an hour by car or public transport, covering every London borough plus nearby towns in Surrey, Kent and Essex.</p>
+        <a class="btn" href="/areas-we-cover/">See all areas <Icon name="arrow" /></a>
+      </div>
+      <ul class="pills" data-reveal>
+        {boroughs.slice(0, 18).map((b) => <li>{b}</li>)}
+        <li class="plus"><a href="/areas-we-cover/">+ many more</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  /* Hero */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; color: var(--pearl); background: var(--ink); overflow: hidden; padding: 120px 0 72px; }
+  .hero-media { position: absolute; inset: 0; }
+  .hero-media video { width: 100%; height: 100%; object-fit: cover; }
+  .hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,10,14,.55) 0%, rgba(12,10,14,.45) 40%, rgba(12,10,14,.92) 100%); }
+  .hero-inner { position: relative; display: grid; gap: 48px; align-items: center; }
+  .hero-copy { max-width: 640px; }
+  .hero h1 { margin-bottom: .4em; }
+  .hero h1 .display { display: block; font-size: clamp(3rem, 8vw, 6.2rem); line-height: .95; background: linear-gradient(120deg, #fff 0%, #ffd6fb 45%, #ff8af0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero h1 .h1-sub { display: block; font-size: clamp(1.15rem, 2.2vw, 1.7rem); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; margin-top: .5em; color: var(--pearl); }
+  .hero .lead { color: rgba(243,250,243,.86); }
+  .hero .eyebrow { color: #ff9cf3; }
+  .hero-rating { margin-top: 22px; font-size: .9rem; color: rgba(243,250,243,.8); }
+  .stars { color: var(--gold); letter-spacing: 2px; margin-right: 6px; }
+  .hero-frame { display: none; position: relative; justify-self: end; width: min(380px, 100%); }
+  .hero-frame video { width: 100%; aspect-ratio: 478/850; object-fit: cover; border-radius: 999px 999px 32px 32px; border: 1px solid rgba(255,255,255,.18); box-shadow: 0 40px 120px -30px rgba(233,52,232,.55); }
+  .chip { position: absolute; display: inline-flex; gap: 8px; align-items: center; padding: 10px 16px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--ink); font-weight: 600; font-size: .85rem; box-shadow: var(--shadow); }
+  .chip :global(svg) { width: 16px; height: 16px; color: var(--pink); }
+  .chip-1 { left: -40px; top: 22%; } .chip-2 { right: -18px; bottom: 16%; }
+  @media (min-width: 960px) {
+    .hero-media { display: none; }
+    .hero { background: radial-gradient(900px 600px at 80% 40%, rgba(233,52,232,.25), transparent 65%), radial-gradient(700px 500px at 0% 100%, rgba(75,110,145,.35), transparent 60%), var(--ink); }
+    .hero-inner { grid-template-columns: 1.2fr .8fr; }
+    .hero-frame { display: block; }
+  }
+
+  .trust-band { padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .head { margin-bottom: clamp(32px, 4vw, 56px); }
+  .more { margin-top: 36px; }
+  .ticks { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 10px; }
+  .ticks li { display: flex; gap: 10px; align-items: flex-start; }
+  .ticks :global(svg) { color: var(--pink); flex: none; margin-top: 4px; width: 20px; height: 20px; }
+
+  .intro-art { position: relative; padding-bottom: 60px; }
+  .intro-art :global(.a1) { width: 82%; aspect-ratio: 4/5; object-fit: cover; border-radius: 240px 240px var(--radius-lg) var(--radius-lg); }
+  .intro-art :global(.a2) { position: absolute; right: 0; bottom: 0; width: 44%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius-lg); border: 6px solid var(--cream); box-shadow: var(--shadow); }
+
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .duo :global(.video-loop) { aspect-ratio: 9/16; }
+  .duo :global(.video-loop:last-child) { margin-top: 48px; }
+
+  .logos-wrap { margin-top: clamp(48px, 6vw, 80px); }
+
+  .pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .pills li { padding: 8px 16px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: .92rem; }
+  .pills .plus { background: var(--pink-soft); border-color: transparent; }
+  .pills .plus a { text-decoration: none; font-weight: 600; color: var(--pink-deep); }
+</style>
