@@ -65,6 +65,22 @@ test('hero video has a poster so the page works when autoplay is blocked', async
   await page.close();
 });
 
+test('only one WhatsApp button is visible in the first screen of each page (phone and desktop)', async () => {
+  for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
+    for (const u of ['/', '/pricing/', '/gallery/', '/services/childrens-face-painting/', '/contact/', '/about/']) {
+      const page = await browser.newPage({ viewport: vp });
+      await page.goto(BASE + u); await page.waitForTimeout(500);
+      const n = await page.evaluate(() => [...document.querySelectorAll('a[href*="wa.me"]')].filter((a) => {
+        const r = a.getBoundingClientRect(); let e = a, op = 1;
+        while (e) { const cs = getComputedStyle(e); if (cs.display === 'none') return false; op *= +cs.opacity; e = e.parentElement; }
+        return r.width > 0 && r.bottom > 0 && r.top < innerHeight && op > 0.1;
+      }).length);
+      assert.equal(n, 1, `${u} at ${vp.width}px shows ${n} WhatsApp buttons`);
+      await page.close();
+    }
+  }
+});
+
 test('gallery shows every photo without JavaScript', async () => {
   const ctx = await browser.newContext({ javaScriptEnabled: false });
   const page = await ctx.newPage();

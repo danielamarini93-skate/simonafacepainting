@@ -31,10 +31,13 @@
   --violet: #7a3cf0;
   --violet-soft: #c9b2ff;
   /* Call-to-action gradient: every stop is dark enough for white text (AA) */
-  --grad-cta: linear-gradient(120deg, #6a2fe0 0%, #9b2fd9 48%, #c3279f 100%);
-  --grad-cta-hover: linear-gradient(120deg, #5a22cc 0%, #8722c7 48%, #ab1e8b 100%);
-  --grad-text: linear-gradient(110deg, #ffffff 0%, #f6d4ff 35%, #d99bff 65%, #ff8cf4 100%);
-  --grad-line: linear-gradient(90deg, #7a3cf0, #e934e8);
+  /* Soft, faded violet → orchid → rose; every stop keeps white text above AA contrast */
+  --grad-cta: linear-gradient(115deg, #6b3fd4 0%, #8446d6 30%, #a24bce 60%, #c055b8 100%);
+  --grad-cta-hover: linear-gradient(115deg, #5c34c0 0%, #763cc4 30%, #9140bc 60%, #ab48a6 100%);
+  --grad-text: linear-gradient(100deg, #ffffff 0%, #fbefff 22%, #ecd2ff 48%, #e0b3f7 72%, #f2a9e3 100%);
+  --glow-violet: rgba(120, 70, 220, .16);
+  --glow-rose: rgba(200, 80, 180, .13);
+  --grad-line: linear-gradient(90deg, rgba(160,110,240,.2), #c58af0 50%, rgba(240,140,220,.9));
   --wa-deep: #7a2ed8;   /* legacy name: primary button colour (now violet) */
 
   --font-display: 'Great Vibes', 'Playfair Display', cursive;
@@ -117,7 +120,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(233,52,232,.45); }
 .btn svg { width: 1.25em; height: 1.25em; flex: none; }
-.btn--wa, .btn--pink { --fg: #fff; background: var(--grad-cta); box-shadow: 0 10px 30px -12px rgba(155, 47, 217, .7); }
+.btn--wa, .btn--pink { --fg: #fff; background: var(--grad-cta); box-shadow: 0 12px 34px -16px rgba(140, 70, 210, .65), inset 0 1px 0 rgba(255,255,255,.18); }
 .btn--wa:hover, .btn--pink:hover { background: var(--grad-cta-hover); }
 .btn--ghost { --bg: transparent; --fg: currentColor; border-color: currentColor; }
 .btn--light { --bg: var(--pearl); --fg: var(--ink); }

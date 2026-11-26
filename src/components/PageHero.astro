@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import WhatsAppButton from './WhatsAppButton.astro';
 interface Props { eyebrow?: string; title: string; lead?: string; image?: ImageMetadata; imageAlt?: string; crumbs?: { name: string; path: string }[]; cta?: boolean; }
 const { eyebrow, title, lead, image, imageAlt = '', crumbs = [], cta = true } = Astro.props;
 ---
@@ -14,13 +13,13 @@ const { eyebrow, title, lead, image, imageAlt = '', crumbs = [], cta = true } = 
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
       {lead && <p class="lead">{lead}</p>}
-      {cta && <div class="btn-row"><WhatsAppButton label="Get a quote on WhatsApp" /><slot name="actions" /></div>}
+      {cta && Astro.slots.has('actions') && <div class="btn-row"><slot name="actions" /></div>}
     </div>
     {image && <div class="art"><Image src={image} alt={imageAlt} widths={[400, 720]} sizes="(min-width: 900px) 440px, 90vw" loading="eager" fetchpriority="high" /></div>}
   </div>
 </section>
 <style>
-  .page-hero { padding: clamp(48px, 7vw, 96px) 0; background: radial-gradient(900px 420px at 85% 0%, rgba(195,39,159,.24), transparent 70%), radial-gradient(700px 380px at 0% 100%, rgba(106,47,224,.22), transparent 70%), var(--ink); }
+  .page-hero { padding: clamp(48px, 7vw, 96px) 0; background: radial-gradient(1100px 520px at 88% -10%, var(--glow-rose), transparent 72%), radial-gradient(900px 480px at -5% 110%, var(--glow-violet), transparent 72%), var(--ink); }
   .inner { display: grid; gap: 40px; align-items: center; }
   @media (min-width: 900px) { .inner.has-img { grid-template-columns: 1.2fr .8fr; } }
   .lead { color: var(--muted-on-dark); }

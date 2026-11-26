@@ -11,7 +11,7 @@ import { faqSchema, breadcrumbSchema } from '../lib/schema';
 const faqs = getFaqs(['minimum-booking', 'faces-per-hour', 'planning', 'packages', 'setup', 'areas']);
 const included = ['Professional face paints, cosmetic glitters & make-up', 'All brushes, sponges & hygiene supplies', 'Design boards for guests to choose from', 'Friendly, DBS-checked & insured artist', 'Set-up and pack-down (not counted in your booked time)'];
 ---
-<Base title="Face Painting Prices London | Parties from £160" description="Face painting prices in London: private parties from £160 (2 hrs), corporate events from £190 and weddings from £320. All materials included. Get a tailored quote on WhatsApp." schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Pricing', path: '/pricing/' }])]}>
+<Base title="Face Painting Prices London | Parties from £160" description="Face painting prices in London: private parties from £160 (2 hrs), corporate events from £190 and weddings from £320. All materials included. Get a tailored quote on WhatsApp." schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Pricing', path: '/pricing/' }])]} heroCta>
   <PageHero eyebrow="Pricing" title="Simple, transparent pricing" lead="All prices include make-up, face paints, cosmetic glitters and materials. Every event is different, so message us for a tailored quote." crumbs={[{ name: 'Pricing', path: '/pricing/' }]} />
 
   <section class="section">

@@ -11,10 +11,12 @@ interface Props {
   description: string;
   image?: string;
   schema?: object[];
-  heroOverlay?: boolean; // header floats over a dark hero
+  heroOverlay?: boolean; // header floats over a dark hero (home page; hero has its own WhatsApp button)
   noindex?: boolean;
+  heroCta?: boolean; // page's first screen already has its own WhatsApp button (phone bar waits)
+  ownTopCta?: boolean; // ...and the header's 'Get a quote' button waits too
 }
-const { title, description, image = '/og-image.jpg', schema = [], heroOverlay = false, noindex = false } = Astro.props;
+const { title, description, image = '/og-image.jpg', schema = [], heroOverlay = false, noindex = false, heroCta = false, ownTopCta = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const fullTitle = title.includes('Simona') ? title : `${title} | Simona's Face Painting`;
 const ogImage = new URL(image, site.url).href;
@@ -51,7 +53,7 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
     {allSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
     <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
-  <body>
+  <body class:list={[{ 'hero-cta': heroOverlay || heroCta, 'home-hero': heroOverlay || ownTopCta }]}>
     <a class="skip" href="#main">Skip to content</a>
     <Header overlay={heroOverlay} />
     <main id="main"><slot /></main>
@@ -66,6 +68,10 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
     </nav>
 
     <script>
+      // Only one WhatsApp button on screen at the top of a page: floating buttons appear after scrolling.
+      const onScrollCta = () => document.body.classList.toggle('scrolled-past', scrollY > Math.min(innerHeight * 0.8, 640));
+      addEventListener('scroll', onScrollCta, { passive: true }); onScrollCta();
+
       // Reveal-on-scroll (content is visible without JS; this is enhancement only)
       const io = new IntersectionObserver((entries) => {
         for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
@@ -110,6 +116,12 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
     box-shadow: 0 14px 34px -10px rgba(155, 47, 217, 0.75); transition: transform .2s ease;
   }
   .wa-fab:hover { transform: translateY(-2px) scale(1.04); }
+  /* Hidden at the top of every page (header / hero already has WhatsApp) */
+  body:not(.scrolled-past) .wa-fab { opacity: 0; pointer-events: none; transform: translateY(20px); }
+  .wa-fab, .contact-bar { transition: opacity .3s ease, transform .3s ease; }
+  /* Home page: the hero's own button is the WhatsApp at the top, so the bar waits */
+  body.hero-cta:not(.scrolled-past) .contact-bar { opacity: 0; pointer-events: none; transform: translateY(100%); }
+  body.home-hero:not(.scrolled-past) .header-cta { display: none; }
   .wa-fab svg { width: 30px; height: 30px; }
   .contact-bar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
