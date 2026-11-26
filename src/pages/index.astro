@@ -45,7 +45,7 @@ const floral = byFile('adults-4a9af00c.jpg')!;
           <span class="h1-sub">Face Painting & Glitter Art · London</span>
         </h1>
         <p class="lead">For parties, weddings and events. From £160.</p>
-        <WhatsAppButton label="Check your date" message={DATE_WA_TEXT} />
+        <WhatsAppButton label="Get a free quote" message={DATE_WA_TEXT} />
       </div>
       <div class="hero-frame" aria-hidden="true">
         <video data-loop src="/video/butterfly.mp4" poster="/video/butterfly.webp" muted loop playsinline autoplay preload="metadata" width="478" height="850"></video>
@@ -64,8 +64,7 @@ const floral = byFile('adults-4a9af00c.jpg')!;
       <div data-reveal>
         <p class="eyebrow">Bring your event to life</p>
         <h2>Every guest leaves glowing, and every face <em>tells a story</em></h2>
-        <p>From the moment your guests sit in our chair, they're treated like the stars of the show. Whether it's a whimsical butterfly, a fierce superhero mask or a shimmer of glitter, each design is painted with care, skill and a dash of fun.</p>
-        <p>Simona and her team bring professional face painting, a dazzling glitter bar and long-lasting glitter tattoos to birthday parties, school fairs, weddings, festivals and corporate events, with designs matched to your theme and guests of every age.</p>
+        <p>From butterflies to superhero masks and festival glitter, every design is hand-painted with care and matched to your theme, for guests of every age.</p>
         <ul class="ticks">
           <li><Icon name="check" /> Quick and efficient, so even big groups stay happy</li>
           <li><Icon name="check" /> Face painting, glitter tattoos, or a combo of both</li>
@@ -97,7 +96,7 @@ const floral = byFile('adults-4a9af00c.jpg')!;
         <p class="eyebrow">Kind words</p>
         <h2>“We can't call her a face painter, she's an artist!”</h2>
       </div>
-      <Reviews />
+      <Reviews limit={3} />
       <div class="logos-wrap"><Logos /></div>
     </div>
   </section>
@@ -185,7 +184,7 @@ const floral = byFile('adults-4a9af00c.jpg')!;
 
   .intro-art { position: relative; padding-bottom: 40px; }
   .intro-art :global(.a1) { width: 82%; aspect-ratio: 4/5; object-fit: cover; border-radius: 240px 240px var(--radius-lg) var(--radius-lg); }
-  .intro-art :global(.a2) { position: absolute; right: 0; bottom: 0; width: 36%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius-lg); border: 2px solid rgba(243,250,243,.85); box-shadow: 0 18px 40px -18px rgba(0,0,0,.7); }
+  .intro-art :global(.a2) { position: absolute; right: 0; bottom: 0; width: 36%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius-lg); border: 4px solid var(--ink); box-shadow: 0 18px 40px -18px rgba(0,0,0,.7); }
 
   .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .duo :global(.video-loop) { aspect-ratio: 9/16; }

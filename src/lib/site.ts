@@ -21,4 +21,4 @@ export function whatsappUrl(text: string = DEFAULT_WA_TEXT): string {
   return `https://wa.me/${site.phoneE164}?text=${encodeURIComponent(text)}`;
 }
 
-export const DATE_WA_TEXT = "Hi Simona! Are you free on [date]? It's a [birthday / wedding / corporate event] in [area] for about [number] guests.";
+export const DATE_WA_TEXT = "Hi Simona! Could I have a free quote?\nDate: \nArea / postcode: \nType of event: \nNumber of guests: ";

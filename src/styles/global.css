@@ -119,8 +119,8 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(233,52,232,.45); }
 .btn svg { width: 1.25em; height: 1.25em; flex: none; }
-.btn--wa, .btn--pink { --fg: #fff; background: var(--grad-cta); box-shadow: 0 12px 34px -16px rgba(140, 70, 210, .65), inset 0 1px 0 rgba(255,255,255,.18); }
-.btn--wa:hover, .btn--pink:hover { background: var(--grad-cta-hover); }
+.btn--wa, .btn--pink { --fg: #fff; background: var(--grad-cta) border-box; border: 0; box-shadow: 0 12px 34px -16px rgba(140, 70, 210, .65); }
+.btn--wa:hover, .btn--pink:hover { background: var(--grad-cta-hover) border-box; }
 .btn--ghost { --bg: transparent; --fg: currentColor; border-color: currentColor; }
 .btn--light { --bg: var(--pearl); --fg: var(--ink); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
