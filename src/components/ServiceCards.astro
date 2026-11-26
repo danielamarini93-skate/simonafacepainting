@@ -74,9 +74,10 @@ const imgFor = (s: (typeof services)[number]) => (images[s.slug] && byFile(image
   .svc li { scroll-snap-align: start; }
   @media (min-width: 700px) { .svc { grid-auto-columns: 42%; } }
   @media (min-width: 1100px) { .svc { margin: 0; padding: 0; grid-auto-flow: row; grid-template-columns: repeat(5, 1fr); overflow: visible; gap: 16px; cursor: auto; } .svc-nav { display: none; } }
-  a { position: relative; display: block; height: 100%; min-height: 440px; border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: #fff; background: var(--ink-3); isolation: isolate; }
-  a :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .8s ease; }
-  a::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(9,8,11,.97) 0%, rgba(9,8,11,.9) 30%, rgba(9,8,11,.55) 55%, rgba(9,8,11,0) 78%); }
+  a { position: relative; display: block; height: 100%; min-height: 440px; border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: #fff; background: var(--paper); isolation: isolate; }
+  /* Photo fills the top of the card and fades into the text area, so the design is never behind the words */
+  a :global(img) { position: absolute; inset: 0 0 auto 0; width: 100%; height: 70%; object-fit: cover; object-position: 50% 55%; z-index: -2; transition: transform .8s ease; }
+  a::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, var(--paper) 0%, var(--paper) 34%, rgba(20,17,24,.75) 46%, rgba(20,17,24,0) 64%); }
   a:hover :global(img) { transform: scale(1.06); }
   .body { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px; display: flex; flex-direction: column; gap: 6px; }
   h3 { margin: 0; color: #fff; font-size: 1.3rem; }
