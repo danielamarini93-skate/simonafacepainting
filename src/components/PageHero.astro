@@ -20,12 +20,12 @@ const { eyebrow, title, lead, image, imageAlt = '', crumbs = [], cta = true } = 
   </div>
 </section>
 <style>
-  .page-hero { padding: clamp(48px, 7vw, 96px) 0; background: radial-gradient(900px 420px at 85% 0%, rgba(233,52,232,.22), transparent 70%), var(--ink); }
+  .page-hero { padding: clamp(48px, 7vw, 96px) 0; background: radial-gradient(900px 420px at 85% 0%, rgba(195,39,159,.24), transparent 70%), radial-gradient(700px 380px at 0% 100%, rgba(106,47,224,.22), transparent 70%), var(--ink); }
   .inner { display: grid; gap: 40px; align-items: center; }
   @media (min-width: 900px) { .inner.has-img { grid-template-columns: 1.2fr .8fr; } }
   .lead { color: var(--muted-on-dark); }
   .art { justify-self: center; width: min(440px, 100%); }
-  .art :global(img) { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 220px 220px var(--radius-lg) var(--radius-lg); box-shadow: 0 30px 80px -30px rgba(233,52,232,.45); }
+  .art :global(img) { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 220px 220px var(--radius-lg) var(--radius-lg); box-shadow: 0 30px 80px -30px rgba(155,47,217,.5); }
   .crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-size: .85rem; color: var(--muted-on-dark); margin-bottom: 18px; }
   .crumbs a { color: inherit; }
   h1 { max-width: 20ch; }

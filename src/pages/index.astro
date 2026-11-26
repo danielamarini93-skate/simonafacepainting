@@ -70,7 +70,7 @@ const floral = byFile('adults-78a94b70.jpg')!;
     <div class="wrap split">
       <div data-reveal>
         <p class="eyebrow">Bring your event to life</p>
-        <h2>Every guest leaves glowing, and every face tells a story</h2>
+        <h2>Every guest leaves glowing, and every face <em>tells a story</em></h2>
         <p>From the moment your guests sit in our chair, they're treated like the stars of the show. Whether it's a whimsical butterfly, a fierce superhero mask or a shimmer of glitter, each design is painted with care, skill and a dash of fun.</p>
         <p>Simona and her team bring professional face painting, a dazzling glitter bar and long-lasting glitter tattoos to birthday parties, school fairs, weddings, festivals and corporate events, with designs matched to your theme and guests of every age.</p>
         <ul class="ticks">
@@ -91,7 +91,7 @@ const floral = byFile('adults-78a94b70.jpg')!;
     <div class="wrap">
       <div class="center head">
         <p class="eyebrow">Services</p>
-        <h2>Colour and sparkle for every kind of celebration</h2>
+        <h2>Colour and <em>sparkle</em> for every kind of celebration</h2>
       </div>
       <ServiceCards images={cardImages} />
     </div>
@@ -114,7 +114,7 @@ const floral = byFile('adults-78a94b70.jpg')!;
     <div class="wrap">
       <div class="center head">
         <p class="eyebrow">Portfolio</p>
-        <h2>A few recent favourites</h2>
+        <h2>A few recent <em>favourites</em></h2>
         <p class="lead">Every design is hand-painted by Simona and her artists at real London parties and events.</p>
       </div>
       <GalleryGrid items={highlights} id="highlights" />
@@ -144,7 +144,7 @@ const floral = byFile('adults-78a94b70.jpg')!;
     <div class="wrap split">
       <div data-reveal>
         <p class="eyebrow">Areas we cover</p>
-        <h2>Face painting across London & beyond</h2>
+        <h2>Face painting across <em>London</em> & beyond</h2>
         <p>Based in London, we travel up to about an hour by car or public transport, covering every London borough plus nearby towns in Surrey, Kent and Essex.</p>
         <a class="btn" href="/areas-we-cover/">See all areas <Icon name="arrow" /></a>
       </div>
@@ -167,23 +167,23 @@ const floral = byFile('adults-78a94b70.jpg')!;
   .hero-inner { position: relative; display: grid; gap: 48px; align-items: center; }
   .hero-copy { max-width: 640px; }
   .hero h1 { margin-bottom: .4em; }
-  .hero h1 .display { display: block; font-size: clamp(3rem, 8vw, 6.2rem); line-height: .95; background: linear-gradient(120deg, #fff 0%, #ffd6fb 45%, #ff8af0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .hero h1 .h1-sub { display: block; font-size: clamp(1.15rem, 2.2vw, 1.7rem); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; margin-top: .5em; color: var(--pearl); }
+  .hero h1 .display { display: block; font-size: clamp(4rem, 11vw, 8.4rem); line-height: 1; padding-right: .1em; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero h1 .h1-sub { display: block; font-family: var(--font-body); font-size: clamp(.95rem, 1.6vw, 1.25rem); font-weight: 300; letter-spacing: .32em; text-transform: uppercase; margin-top: .5em; color: var(--pearl); }
   .hero .lead { color: rgba(243,250,243,.86); }
-  .hero .eyebrow { color: #ff9cf3; }
+  .hero .eyebrow { color: var(--pink-text); }
   .hero-link { margin: 10px 0 0; }
-  .hero-link a { display: inline-flex; gap: 6px; align-items: center; color: #ff9cf3; font-weight: 600; text-decoration: none; }
+  .hero-link a { display: inline-flex; gap: 6px; align-items: center; color: var(--pink-text); font-weight: 500; text-decoration: none; }
   .hero-link :global(svg) { width: 18px; height: 18px; }
   .hero-rating { margin-top: 22px; font-size: .9rem; color: rgba(243,250,243,.8); }
   .stars { color: var(--gold); letter-spacing: 2px; margin-right: 6px; }
   .hero-frame { display: none; position: relative; justify-self: end; width: min(380px, 100%); }
-  .hero-frame video { width: 100%; aspect-ratio: 478/850; object-fit: cover; border-radius: 999px 999px 32px 32px; border: 1px solid rgba(255,255,255,.18); box-shadow: 0 40px 120px -30px rgba(233,52,232,.55); }
-  .chip { position: absolute; display: inline-flex; gap: 8px; align-items: center; padding: 10px 16px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--ink); font-weight: 600; font-size: .85rem; box-shadow: var(--shadow); }
+  .hero-frame video { width: 100%; aspect-ratio: 478/850; object-fit: cover; border-radius: 999px 999px 32px 32px; border: 1px solid rgba(255,255,255,.18); box-shadow: 0 40px 120px -30px rgba(155,47,217,.6); }
+  .chip { position: absolute; display: inline-flex; gap: 8px; align-items: center; padding: 10px 16px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--ink); font-weight: 500; font-size: .85rem; box-shadow: var(--shadow); }
   .chip :global(svg) { width: 16px; height: 16px; color: var(--pink); }
   .chip-1 { left: -40px; top: 22%; } .chip-2 { right: -18px; bottom: 16%; }
   @media (min-width: 960px) {
     .hero-media { display: none; }
-    .hero { background: radial-gradient(900px 600px at 80% 40%, rgba(233,52,232,.25), transparent 65%), radial-gradient(700px 500px at 0% 100%, rgba(75,110,145,.35), transparent 60%), var(--ink); }
+    .hero { background: radial-gradient(900px 600px at 80% 40%, rgba(195,39,159,.28), transparent 65%), radial-gradient(700px 500px at 0% 100%, rgba(106,47,224,.32), transparent 60%), var(--ink); }
     .hero-inner { grid-template-columns: 1.2fr .8fr; }
     .hero-frame { display: block; }
   }
@@ -208,5 +208,5 @@ const floral = byFile('adults-78a94b70.jpg')!;
   .pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
   .pills li { padding: 8px 16px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: .92rem; }
   .pills .plus { background: var(--pink-soft); border-color: transparent; }
-  .pills .plus a { text-decoration: none; font-weight: 600; color: var(--pink-text); }
+  .pills .plus a { text-decoration: none; font-weight: 500; color: var(--pink-text); }
 </style>

@@ -1,12 +1,13 @@
-@import '@fontsource/cinzel-decorative/latin-700.css';
-@import '@fontsource/cinzel/latin-500.css';
-@import '@fontsource/cinzel/latin-600.css';
-@import '@fontsource/raleway/latin-400.css';
-@import '@fontsource/raleway/latin-500.css';
-@import '@fontsource/raleway/latin-600.css';
-@import '@fontsource/raleway/latin-400-italic.css';
+/* Type: script accent (Great Vibes) for showpiece titles, elegant serif (Playfair Display)
+   for headings, light geometric sans (Jost) for reading text. */
+@import '@fontsource/great-vibes/latin-400.css';
+@import '@fontsource/playfair-display/latin-400.css';
+@import '@fontsource/playfair-display/latin-400-italic.css';
+@import '@fontsource/jost/latin-300.css';
+@import '@fontsource/jost/latin-400.css';
+@import '@fontsource/jost/latin-500.css';
 
-/* ---------- Tokens (Simona's brand: black, magenta, mint-white) ---------- */
+/* ---------- Tokens: black ground, purple → pink gradients, white ---------- */
 :root {
   color-scheme: dark;
   --ink: #0c0a0e;
@@ -24,15 +25,21 @@
   --pink: #e934e8;
   --pink-deep: #b01faf;  /* pink behind white text (AA contrast) */
   --pink-soft: rgba(233, 52, 232, 0.14);
-  --pink-text: #ff8cf4;
+  --pink-text: #e9a6ff;
   --blue: #4b6e91;
   --gold: #d9b36c;
-  --wa: #25d366;
-  --wa-deep: #0b7038;   /* WhatsApp green, darkened for white-text contrast */
+  --violet: #7a3cf0;
+  --violet-soft: #c9b2ff;
+  /* Call-to-action gradient: every stop is dark enough for white text (AA) */
+  --grad-cta: linear-gradient(120deg, #6a2fe0 0%, #9b2fd9 48%, #c3279f 100%);
+  --grad-cta-hover: linear-gradient(120deg, #5a22cc 0%, #8722c7 48%, #ab1e8b 100%);
+  --grad-text: linear-gradient(110deg, #ffffff 0%, #f6d4ff 35%, #d99bff 65%, #ff8cf4 100%);
+  --grad-line: linear-gradient(90deg, #7a3cf0, #e934e8);
+  --wa-deep: #7a2ed8;   /* legacy name: primary button colour (now violet) */
 
-  --font-display: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
-  --font-head: 'Cinzel', Georgia, serif;
-  --font-body: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Great Vibes', 'Playfair Display', cursive;
+  --font-head: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --radius: 18px;
   --radius-lg: 28px;
@@ -48,6 +55,7 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 body {
   margin: 0;
+  font-weight: 300;
   background: var(--cream);
   color: var(--text);
   font-family: var(--font-body);
@@ -60,12 +68,14 @@ img, video { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; border-radius: 6px; }
 
-h1, h2, h3 { font-family: var(--font-head); font-weight: 600; line-height: 1.15; letter-spacing: 0.01em; margin: 0 0 0.5em; text-wrap: balance; }
+h1, h2, h3 { font-family: var(--font-head); font-weight: 400; line-height: 1.18; letter-spacing: 0; margin: 0 0 0.5em; text-wrap: balance; }
 h1 { font-size: clamp(2.1rem, 4.6vw, 4rem); }
 h2 { font-size: clamp(1.7rem, 3vw, 2.6rem); }
-h3 { font-size: clamp(1.15rem, 1.4vw, 1.35rem); font-weight: 500; }
+h3 { font-size: clamp(1.15rem, 1.4vw, 1.35rem); font-weight: 400; }
+h2 em, h1 em { font-style: italic; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
 p { margin: 0 0 1em; text-wrap: pretty; }
-.display { font-family: var(--font-display); font-weight: 700; }
+.display { font-family: var(--font-display); font-weight: 400; }
+.script { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; text-transform: none; }
 
 .wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
 .narrow { max-width: 760px; }
@@ -84,12 +94,12 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 0.6em;
-  font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+  font-family: var(--font-body); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.24em; text-transform: uppercase;
   color: var(--pink-text); margin-bottom: 1rem;
 }
-.section--dark .eyebrow { color: #ff8af0; }
-.eyebrow::before { content: ''; width: 28px; height: 1px; background: currentColor; }
-.center .eyebrow::after { content: ''; width: 28px; height: 1px; background: currentColor; }
+.section--dark .eyebrow { color: var(--pink-text); }
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--grad-line); }
+.center .eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--grad-line); }
 
 .sparkle-text {
   background: var(--sparkle); -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -102,15 +112,13 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   min-height: 52px; padding: 0.85em 1.6em;
   background: var(--bg); color: var(--fg);
   border: 1px solid transparent; border-radius: 999px;
-  font: 600 0.95rem/1 var(--font-body); letter-spacing: 0.04em; text-decoration: none;
+  font: 500 0.98rem/1 var(--font-body); letter-spacing: 0.04em; text-decoration: none;
   cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(233,52,232,.45); }
 .btn svg { width: 1.25em; height: 1.25em; flex: none; }
-.btn--wa { --bg: var(--wa-deep); --fg: #fff; }
-.btn--wa:hover { --bg: #085c2e; }
-.btn--pink { --bg: var(--pink-deep); --fg: #fff; }
-.btn--pink:hover { --bg: #961a95; }
+.btn--wa, .btn--pink { --fg: #fff; background: var(--grad-cta); box-shadow: 0 10px 30px -12px rgba(155, 47, 217, .7); }
+.btn--wa:hover, .btn--pink:hover { background: var(--grad-cta-hover); }
 .btn--ghost { --bg: transparent; --fg: currentColor; border-color: currentColor; }
 .btn--light { --bg: var(--pearl); --fg: var(--ink); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }

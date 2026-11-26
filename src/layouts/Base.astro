@@ -106,8 +106,8 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
   .wa-fab {
     position: fixed; right: 20px; bottom: 20px; z-index: 60; display: none;
     width: 60px; height: 60px; place-items: center; border-radius: 50%;
-    background: var(--wa-deep); color: #fff;
-    box-shadow: 0 14px 34px -10px rgba(18, 140, 74, 0.7); transition: transform .2s ease;
+    background: var(--grad-cta); color: #fff;
+    box-shadow: 0 14px 34px -10px rgba(155, 47, 217, 0.75); transition: transform .2s ease;
   }
   .wa-fab:hover { transform: translateY(-2px) scale(1.04); }
   .wa-fab svg { width: 30px; height: 30px; }
@@ -120,10 +120,10 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
   }
   .contact-bar a {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px;
-    border-radius: 999px; font-weight: 600; text-decoration: none; color: var(--pearl);
+    border-radius: 999px; font-weight: 500; text-decoration: none; color: var(--pearl);
     border: 1px solid rgba(243,250,243,.3);
   }
-  .contact-bar a.wa { background: var(--wa-deep); border-color: var(--wa-deep); color: #fff; }
+  .contact-bar a.wa { background: var(--grad-cta); border-color: transparent; color: #fff; }
   .contact-bar svg { width: 22px; height: 22px; }
   body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
   @media (min-width: 900px) {
