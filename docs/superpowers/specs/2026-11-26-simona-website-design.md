@@ -1,7 +1,7 @@
 # Simona's Face Painting — new website design
 
 Date: 2026-11-26
-Status: draft for approval
+Status: draft for approval (builder-check answers folded in)
 
 ## Intent and the why
 
@@ -39,8 +39,15 @@ therefore "Message Simona on WhatsApp", not a booking engine.
 - Structured data (schema.org LocalBusiness/ProfessionalService with
   service area, Service, FAQPage, Review/AggregateRating only where the
   reviews are visible on the page).
-- Easy to add new photos after a busy weekend: drop files into a folder,
-  commit, and the gallery + image optimisation update automatically.
+- Easy to add new photos after a busy weekend. Daniela does this via the
+  GitHub website: upload originals (HEIC/JPG/MOV) into `incoming/<category>/`
+  and commit. A GitHub Action converts HEIC→JPEG, auto-rotates, strips
+  EXIF/GPS, resizes, writes the processed file + a metadata stub (category
+  from the folder name, placeholder alt text to refine) into
+  `src/content/gallery/`, deletes the originals from `incoming/`, and
+  commits. Netlify then deploys. (Originals briefly exist in git history;
+  acceptable trade-off, since GitHub web upload can't process locally.
+  For phone shots, Daniela can also tick "remove location" when exporting.)
 
 ## Non-goals
 
@@ -72,7 +79,7 @@ therefore "Message Simona on WhatsApp", not a booking engine.
   connector only (not public).
 - Simona has confirmed parental permission to publish the photos of
   children.
-- Contact: phone/WhatsApp 07459 889053 (assumed same number for WhatsApp),
+- Contact: phone/WhatsApp 07459 889053 (confirmed as her WhatsApp),
   email simonafacepaintinguk@gmail.com, Instagram + Facebook (links from
   current site).
 
@@ -146,7 +153,17 @@ before switching DNS).
 - JSON-LD: LocalBusiness/ProfessionalService with `areaServed` (London +
   listed areas), phone, sameAs (Instagram, Facebook, Google Maps);
   Service entries; FAQPage.
-- NAP (name, phone) identical to the Google Business Profile.
+- NAP (name, phone) identical to the Google Business Profile. No street
+  address on the site: she's a service-area business covering all of
+  London plus nearby towns (the list on the current Areas page). Schema
+  uses `addressLocality: London`, `addressCountry: GB` and `areaServed`
+  with London + the surrounding towns.
+- No separate area pages at launch; the Areas page carries the borough
+  and town list as real content.
+- Analytics: Cloudflare Web Analytics (cookieless, no consent banner),
+  plus a lightweight click event on WhatsApp buttons if supported;
+  privacy policy updated to say so. (Builder's call; switch to GA4 + a
+  consent banner only if asked.)
 - Launch checklist for Daniela/Simona (outside the codebase): verify the
   site in Google Search Console and submit the sitemap; Google Business
   Profile fixes — add hidden base address to stop the pin showing in
