@@ -64,27 +64,27 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   .site-header.overlay.scrolled { background: rgba(12,10,14,.94); border-color: var(--line-dark); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
   .bar { display: flex; align-items: center; gap: 10px; min-height: 76px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; margin-right: auto; }
-  .badge { width: 52px; height: 52px; border-radius: 14px; overflow: hidden; background: #fff; flex: none; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); }
+  .badge { width: 52px; height: 52px; border-radius: 3px; overflow: hidden; background: #fff; flex: none; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); }
   .badge :global(img) { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
-  .wordmark { font-size: 1.7rem; line-height: .9; }
+  .wordmark { font-size: 1.3rem; line-height: 1; font-style: italic; }
   .wordmark small { display: block; margin-top: 4px; font-family: var(--font-body); font-weight: 400; font-size: .6rem; letter-spacing: .34em; text-transform: uppercase; color: var(--pink-text); }
 
   .nav-desktop { display: none; }
   .nav-desktop > ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
-  .nav-desktop a { display: block; padding: 10px 12px; text-decoration: none; font-size: .84rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; border-radius: 999px; color: rgba(243,250,243,.86); }
+  .nav-desktop a { display: block; padding: 10px 12px; text-decoration: none; font-size: .84rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; border-radius: 2px; color: rgba(243,250,243,.86); }
   .nav-desktop a:hover, .nav-desktop a[aria-current] { color: #fff; background: rgba(255,255,255,.08); }
   .has-sub { position: relative; }
-  .sub { position: absolute; left: 0; top: 100%; min-width: 260px; list-style: none; margin: 0; padding: 10px; background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: 16px; box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(6px); transition: .2s ease; }
+  .sub { position: absolute; left: 0; top: 100%; min-width: 260px; list-style: none; margin: 0; padding: 10px; background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: 3px; box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(6px); transition: .2s ease; }
   .has-sub:hover .sub, .has-sub:focus-within .sub { opacity: 1; visibility: visible; transform: none; }
-  .sub a { text-transform: none; letter-spacing: .02em; font-size: .95rem; border-radius: 10px; }
+  .sub a { text-transform: none; letter-spacing: .02em; font-size: .95rem; border-radius: 3px; }
   .header-cta { display: none; min-height: 44px; padding: .7em 1.2em; font-size: .88rem; }
 
-  .call-mobile { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; border: 1px solid var(--line-dark); color: var(--pearl); }
+  .call-mobile { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 3px; border: 1px solid var(--line-dark); color: var(--pearl); }
   .call-mobile :global(svg) { width: 22px; height: 22px; }
   .nav-mobile { position: relative; }
-  .nav-mobile summary { list-style: none; cursor: pointer; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; border: 1px solid var(--line-dark); }
+  .nav-mobile summary { list-style: none; cursor: pointer; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 3px; border: 1px solid var(--line-dark); }
   .nav-mobile summary::-webkit-details-marker { display: none; }
-  .drawer { position: fixed; left: 12px; right: 12px; top: 84px; max-height: calc(100dvh - 100px); overflow: auto; padding: 18px; background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: 22px; box-shadow: var(--shadow); }
+  .drawer { position: fixed; left: 12px; right: 12px; top: 84px; max-height: calc(100dvh - 100px); overflow: auto; padding: 18px; background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: 3px; box-shadow: var(--shadow); }
   .drawer ul { list-style: none; margin: 0 0 16px; padding: 0; }
   .drawer a:not(.btn) { display: block; padding: 11px 8px; text-decoration: none; font-family: var(--font-head); font-size: 1.15rem; border-bottom: 1px solid var(--line-dark); }
   .drawer ul ul a:not(.btn) { font-family: var(--font-body); font-size: .98rem; padding-left: 20px; color: var(--muted-on-dark); }

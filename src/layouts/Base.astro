@@ -121,7 +121,8 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
   .wa-fab, .contact-bar { transition: opacity .3s ease, transform .3s ease; }
   /* Home page: the hero's own button is the WhatsApp at the top, so the bar waits */
   body.hero-cta:not(.scrolled-past) .contact-bar { opacity: 0; pointer-events: none; transform: translateY(100%); }
-  body.home-hero:not(.scrolled-past) .header-cta { display: none; }
+  body.home-hero:not(.scrolled-past) .header-cta,
+  body.home-hero:not(.scrolled-past) .call-mobile { display: none; }
   .wa-fab svg { width: 30px; height: 30px; }
   .contact-bar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
@@ -132,7 +133,7 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
   }
   .contact-bar a {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px;
-    border-radius: 999px; font-weight: 500; text-decoration: none; color: var(--pearl);
+    border-radius: 2px; font-weight: 500; text-decoration: none; color: var(--pearl);
     border: 1px solid rgba(243,250,243,.3);
   }
   .contact-bar a.wa { background: var(--grad-cta); border-color: transparent; color: #fff; }

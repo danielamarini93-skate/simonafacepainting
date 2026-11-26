@@ -16,7 +16,7 @@ const cats = [...new Set(items.map((i) => i.category))] as Category[];
   <ul class="masonry">
     {items.map((item, i) => (
       <li data-category={item.category}>
-        <a href={fulls[i].src} aria-label={`Enlarge: ${item.alt}`}>
+        <a href={fulls[i].src} draggable="false" aria-label={`Enlarge: ${item.alt}`}>
           <Image src={item.src} alt={item.alt} widths={[400, 720]} sizes="(min-width: 1100px) 280px, (min-width: 700px) 33vw, 50vw" loading={i < 4 ? 'eager' : 'lazy'} />
         </a>
       </li>
@@ -67,7 +67,7 @@ const cats = [...new Set(items.map((i) => i.category))] as Category[];
 
 <style>
   .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
-  .filters button { font: 500 .92rem var(--font-body); padding: 10px 18px; min-height: 44px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--text); cursor: pointer; transition: .2s; }
+  .filters button { font: 500 .92rem var(--font-body); padding: 10px 18px; min-height: 44px; border-radius: 2px; border: 1px solid var(--line); background: var(--paper); color: var(--text); cursor: pointer; transition: .2s; }
   .filters button span { opacity: 1; font-size: .8em; margin-left: 4px; }
   .filters button[aria-pressed='true'] { background: var(--grad-cta); color: #fff; border-color: transparent; }
   .filters button:hover { border-color: var(--pink); }
@@ -77,14 +77,14 @@ const cats = [...new Set(items.map((i) => i.category))] as Category[];
   .masonry li { break-inside: avoid; margin-bottom: 12px; }
   @media (min-width: 700px) { .masonry li { margin-bottom: 16px; } }
   .masonry li[hidden] { display: none; }
-  .masonry a { display: block; overflow: hidden; border-radius: 14px; background: var(--line); }
-  .masonry :global(img) { width: 100%; height: auto; transition: transform .6s ease; }
+  .masonry a { display: block; overflow: hidden; border-radius: 3px; background: var(--line); }
+  .masonry :global(img) { width: 100%; height: auto; transition: transform .6s ease; -webkit-user-drag: none; user-select: none; }
   .masonry a:hover :global(img) { transform: scale(1.04); }
 
   .lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100dvh; width: 100vw; height: 100dvh; margin: 0; }
   .lightbox::backdrop { background: rgba(8,6,10,.94); }
   .lightbox[open] { display: grid; place-items: center; }
-  .lightbox img { max-width: min(92vw, 1100px); max-height: 82dvh; width: auto; height: auto; border-radius: 12px; }
+  .lightbox img { max-width: min(92vw, 1100px); max-height: 82dvh; width: auto; height: auto; border-radius: 3px; }
   .lb-cap { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; color: var(--pearl); font-size: .9rem; margin: 0; padding: 0 60px; }
   .lightbox button { position: absolute; background: rgba(255,255,255,.1); color: #fff; border: 0; width: 52px; height: 52px; border-radius: 50%; font-size: 30px; line-height: 1; cursor: pointer; }
   .lightbox button:hover { background: var(--pink); }

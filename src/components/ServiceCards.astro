@@ -8,7 +8,8 @@ const { exclude, images = {} } = Astro.props;
 const list = services.filter((s) => s.slug !== exclude);
 const imgFor = (s: (typeof services)[number]) => (images[s.slug] && byFile(images[s.slug])) || pick({ categories: s.gallery, featured: true, limit: 1 })[0];
 ---
-<ul class="svc">
+<div class="svc-wrap" data-carousel>
+<ul class="svc" data-track>
   {list.map((s) => { const im = imgFor(s); return (
     <li data-reveal>
       <a href={`/services/${s.slug}/`}>
@@ -22,12 +23,57 @@ const imgFor = (s: (typeof services)[number]) => (images[s.slug] && byFile(image
     </li>
   ); })}
 </ul>
+<div class="svc-nav" aria-hidden="true">
+  <button type="button" data-prev tabindex="-1" aria-label="Previous"><Icon name="arrow" /></button>
+  <button type="button" data-next tabindex="-1" aria-label="Next"><Icon name="arrow" /></button>
+</div>
+</div>
+
+<script>
+  // Carousel (below 1100px): native swipe on touch; click-and-drag with a mouse;
+  // arrow buttons; a drag never counts as a click; images can't be picked up.
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    track.querySelectorAll('img, a').forEach((el) => el.setAttribute('draggable', 'false'));
+    const step = () => (track.querySelector('li')?.getBoundingClientRect().width ?? 300) + 14;
+    root.querySelector('[data-prev]')!.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    root.querySelector('[data-next]')!.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+
+    let down = false, startX = 0, startLeft = 0, moved = false;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || track.scrollWidth <= track.clientWidth) return;
+      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+      track.classList.add('dragging');
+    });
+    addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 5) moved = true;
+      track.scrollLeft = startLeft - dx;
+    });
+    addEventListener('pointerup', () => {
+      if (!down) return;
+      down = false; track.classList.remove('dragging');
+      // snap to the nearest card
+      const s = step(); track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: 'smooth' });
+    });
+    track.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  });
+</script>
 <style>
-  .svc { list-style: none; margin: 0 calc(-1 * var(--gutter)); padding: 4px var(--gutter) 12px; display: grid; gap: 14px; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .svc-wrap { position: relative; }
+  .svc { list-style: none; overscroll-behavior-x: contain; -webkit-user-select: none; user-select: none; cursor: grab; margin: 0 calc(-1 * var(--gutter)); padding: 4px var(--gutter) 12px; display: grid; gap: 14px; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .svc::-webkit-scrollbar { display: none; }
+  .svc.dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+  .svc :global(img) { -webkit-user-drag: none; pointer-events: none; }
+  .svc-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+  .svc-nav button { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 2px; border: 1px solid var(--line-dark); background: transparent; color: var(--pearl); cursor: pointer; }
+  .svc-nav button:hover { border-color: var(--pink-text); }
+  .svc-nav [data-prev] :global(svg) { transform: rotate(180deg); }
+  .svc-nav :global(svg) { width: 20px; height: 20px; }
   .svc li { scroll-snap-align: start; }
   @media (min-width: 700px) { .svc { grid-auto-columns: 42%; } }
-  @media (min-width: 1100px) { .svc { margin: 0; padding: 0; grid-auto-flow: row; grid-template-columns: repeat(5, 1fr); overflow: visible; gap: 16px; } }
+  @media (min-width: 1100px) { .svc { margin: 0; padding: 0; grid-auto-flow: row; grid-template-columns: repeat(5, 1fr); overflow: visible; gap: 16px; cursor: auto; } .svc-nav { display: none; } }
   a { position: relative; display: block; height: 100%; min-height: 440px; border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: #fff; background: var(--ink-3); isolation: isolate; }
   a :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .8s ease; }
   a::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(12,10,14,.92) 0%, rgba(12,10,14,.35) 45%, rgba(12,10,14,0) 70%); }
