@@ -9,6 +9,9 @@ export const site = {
   instagram: 'https://www.instagram.com/simonasfacepainting/',
   facebook: 'https://www.facebook.com/profile.php?id=100000468148203',
   googleMaps: 'https://www.google.com/maps?cid=5221955485266361915',
+  googleRating: '5.0',
+  // Set to the number shown on her Google profile (e.g. 21) to display "5.0 on Google (21 reviews)".
+  googleReviewCount: undefined as number | undefined,
 };
 
 export const DEFAULT_WA_TEXT =
@@ -17,3 +20,5 @@ export const DEFAULT_WA_TEXT =
 export function whatsappUrl(text: string = DEFAULT_WA_TEXT): string {
   return `https://wa.me/${site.phoneE164}?text=${encodeURIComponent(text)}`;
 }
+
+export const DATE_WA_TEXT = "Hi Simona! Are you free on [date]? It's a [birthday / wedding / corporate event] in [area] for about [number] guests.";

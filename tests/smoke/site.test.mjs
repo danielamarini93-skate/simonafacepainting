@@ -43,9 +43,17 @@ test('every URL from the old WordPress sitemap still exists, with a unique title
   }
 });
 
-test('old WordPress-only pages redirect home', () => {
+test('hacked and placeholder WordPress pages are marked gone (410)', () => {
   const toml = readFileSync('netlify.toml', 'utf8');
-  for (const p of ['/landing-1/', '/landing-2/', '/landing-3/', '/amen/']) assert.ok(toml.includes(`from = "${p}*"`), p);
+  for (const p of ['/landing-1/', '/landing-2/', '/landing-3/', '/amen/']) {
+    assert.match(toml, new RegExp(`from = "${p}\\*"\\s+to = "/404.html"\\s+status = 410`), p);
+  }
+  assert.ok(!existsSync('dist/amen/index.html'));
+});
+
+test('security headers are configured', () => {
+  const toml = readFileSync('netlify.toml', 'utf8');
+  for (const h of ['Strict-Transport-Security', 'X-Content-Type-Options', 'X-Frame-Options', 'Referrer-Policy']) assert.ok(toml.includes(h), h);
 });
 
 test('hero video has a poster so the page works when autoplay is blocked', async () => {

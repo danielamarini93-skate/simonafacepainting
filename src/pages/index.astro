@@ -12,6 +12,7 @@ import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import { pick, byFile } from '../lib/gallery';
 import { boroughs } from '../data/content';
+import { site, DATE_WA_TEXT } from '../lib/site';
 import simona from '../assets/brand/simona.jpg';
 
 const highlights = pick({ featured: true }).filter((g) => g.featured).slice(0, 12);
@@ -43,12 +44,13 @@ const floral = byFile('adults-78a94b70.jpg')!;
           <span class="display">Simona's</span>
           <span class="h1-sub">Face Painting & Glitter Art</span>
         </h1>
-        <p class="lead">Adding colour, sparkle and smiles to every celebration. Hand-painted designs for children and adults at parties, weddings, festivals and corporate events across London.</p>
+        <p class="lead">Face painting and glitter bar for birthdays, school fairs, weddings and corporate events across London. Beautiful designs in about 3 minutes a face. Parties from £160.</p>
         <div class="btn-row">
-          <WhatsAppButton label="Get a quote on WhatsApp" />
-          <a class="btn btn--ghost" href="/gallery/">See the gallery <Icon name="arrow" /></a>
+          <WhatsAppButton label="Check your date" message={DATE_WA_TEXT} />
+          <a class="btn btn--ghost" href={site.phoneHref} data-track="call"><Icon name="phone" /> Call {site.phoneDisplay}</a>
         </div>
-        <p class="hero-rating"><span class="stars">★★★★★</span> 5.0 on Google · DBS checked · Fully insured</p>
+        <p class="hero-rating"><span class="stars">★★★★★</span> {site.googleRating} on Google{site.googleReviewCount ? ` (${site.googleReviewCount} reviews)` : ''} · DBS checked · Fully insured (PLI)</p>
+        <p class="hero-link"><a href="/gallery/">See the gallery <Icon name="arrow" /></a></p>
       </div>
       <div class="hero-frame" aria-hidden="true">
         <video data-loop src="/video/butterfly.mp4" poster="/video/butterfly.webp" muted loop playsinline autoplay preload="metadata" width="478" height="850"></video>
@@ -95,6 +97,18 @@ const floral = byFile('adults-78a94b70.jpg')!;
     </div>
   </section>
 
+  <!-- REVIEWS -->
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Kind words</p>
+        <h2>“We can't call her a face painter, she's an artist!”</h2>
+      </div>
+      <Reviews />
+      <div class="logos-wrap"><Logos /></div>
+    </div>
+  </section>
+
   <!-- GALLERY HIGHLIGHTS -->
   <section class="section">
     <div class="wrap">
@@ -122,18 +136,6 @@ const floral = byFile('adults-78a94b70.jpg')!;
         <VideoLoop id="kit" />
         <VideoLoop id="reindeer" />
       </div>
-    </div>
-  </section>
-
-  <!-- REVIEWS -->
-  <section class="section section--white">
-    <div class="wrap">
-      <div class="center head">
-        <p class="eyebrow">Kind words</p>
-        <h2>“We can't call her a face painter, she's an artist!”</h2>
-      </div>
-      <Reviews />
-      <div class="logos-wrap"><Logos /></div>
     </div>
   </section>
 
@@ -169,6 +171,9 @@ const floral = byFile('adults-78a94b70.jpg')!;
   .hero h1 .h1-sub { display: block; font-size: clamp(1.15rem, 2.2vw, 1.7rem); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; margin-top: .5em; color: var(--pearl); }
   .hero .lead { color: rgba(243,250,243,.86); }
   .hero .eyebrow { color: #ff9cf3; }
+  .hero-link { margin: 10px 0 0; }
+  .hero-link a { display: inline-flex; gap: 6px; align-items: center; color: #ff9cf3; font-weight: 600; text-decoration: none; }
+  .hero-link :global(svg) { width: 18px; height: 18px; }
   .hero-rating { margin-top: 22px; font-size: .9rem; color: rgba(243,250,243,.8); }
   .stars { color: var(--gold); letter-spacing: 2px; margin-right: 6px; }
   .hero-frame { display: none; position: relative; justify-self: end; width: min(380px, 100%); }

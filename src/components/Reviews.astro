@@ -8,7 +8,7 @@ const { limit = 6 } = Astro.props;
 <div class="reviews">
   <div class="rating">
     <span class="stars">{[1,2,3,4,5].map(() => <Icon name="star" />)}</span>
-    <span><strong>5.0</strong> on <a href={site.googleMaps} target="_blank" rel="noopener">Google reviews</a></span>
+    <span><strong>{site.googleRating}</strong> on Google{site.googleReviewCount ? ` (${site.googleReviewCount} reviews)` : ''} · <a href={site.googleMaps} target="_blank" rel="noopener">Read all reviews on Google</a></span>
   </div>
   <ul class="cols">
     {reviews.slice(0, limit).map((r) => (

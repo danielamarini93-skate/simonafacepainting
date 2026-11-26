@@ -5,32 +5,63 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# Old WordPress pages that no longer exist
-[[redirects]]
-  from = "/landing-1/*"
-  to = "/"
-  status = 301
-[[redirects]]
-  from = "/landing-2/*"
-  to = "/"
-  status = 301
-[[redirects]]
-  from = "/landing-3/*"
-  to = "/"
-  status = 301
+# Pages from the old WordPress site that must disappear from Google.
+# 410 = "gone for good", which drops them from the index faster than a redirect.
+# /amen/ was a hacked page ("haxored by ameN", created 14 Aug 2026);
+# /landing-1..3/ were lorem-ipsum template pages.
 [[redirects]]
   from = "/amen/*"
-  to = "/"
-  status = 301
+  to = "/404.html"
+  status = 410
+  force = true
+[[redirects]]
+  from = "/landing-1/*"
+  to = "/404.html"
+  status = 410
+  force = true
+[[redirects]]
+  from = "/landing-2/*"
+  to = "/404.html"
+  status = 410
+  force = true
+[[redirects]]
+  from = "/landing-3/*"
+  to = "/404.html"
+  status = 410
+  force = true
+# WordPress system URLs (bots probe these)
 [[redirects]]
   from = "/wp-admin/*"
-  to = "/"
-  status = 301
+  to = "/404.html"
+  status = 410
+  force = true
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/404.html"
+  status = 410
+  force = true
 [[redirects]]
   from = "/feed/*"
   to = "/"
   status = 301
+# Old WordPress sitemap addresses -> new sitemap
+[[redirects]]
+  from = "/sitemap_index.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+[[redirects]]
+  from = "/page-sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 301
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
 [[headers]]
   for = "/_astro/*"
   [headers.values]

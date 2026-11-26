@@ -19,7 +19,7 @@ import { breadcrumbSchema } from '../../lib/schema';
         <article class="card">
           <h2 class="h3"><a href={`/services/${s.slug}/`}>{s.title}</a></h2>
           <p class="muted">{s.intro[0]}</p>
-          <a href={`/services/${s.slug}/`}>Learn more →</a>
+          <a href={`/services/${s.slug}/`}>More about {s.name.toLowerCase()} →</a>
         </article>
       ))}
     </div>

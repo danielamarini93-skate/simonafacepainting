@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import logo from '../assets/brand/logo.jpg';
 import Icon from './Icon.astro';
 import { nav } from '../lib/nav';
-import { whatsappUrl } from '../lib/site';
+import { whatsappUrl, site } from '../lib/site';
 interface Props { overlay?: boolean }
 const { overlay = false } = Astro.props;
 const path = Astro.url.pathname;
@@ -33,6 +33,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
     <a class="btn btn--wa header-cta" href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp"><Icon name="whatsapp" /> Get a quote</a>
 
+    <a class="call-mobile" href={site.phoneHref} aria-label={`Call Simona on ${site.phoneDisplay}`}><Icon name="phone" /></a>
     <details class="nav-mobile">
       <summary aria-label="Open menu"><Icon name="menu" /></summary>
       <div class="drawer">
@@ -61,7 +62,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   .site-header { position: sticky; top: 0; z-index: 50; background: rgba(12,10,14,.94); color: var(--pearl); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line-dark); transition: background .3s ease, padding .3s ease; }
   .site-header.overlay { position: fixed; inset: 0 0 auto 0; background: linear-gradient(to bottom, rgba(12,10,14,.75), rgba(12,10,14,0)); border-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .site-header.overlay.scrolled { background: rgba(12,10,14,.94); border-color: var(--line-dark); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-  .bar { display: flex; align-items: center; gap: 20px; min-height: 76px; }
+  .bar { display: flex; align-items: center; gap: 10px; min-height: 76px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; margin-right: auto; }
   .badge { width: 52px; height: 52px; border-radius: 14px; overflow: hidden; background: #fff; flex: none; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); }
   .badge :global(img) { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
@@ -78,6 +79,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   .sub a { text-transform: none; letter-spacing: .02em; font-size: .95rem; border-radius: 10px; }
   .header-cta { display: none; min-height: 44px; padding: .7em 1.2em; font-size: .88rem; }
 
+  .call-mobile { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; border: 1px solid var(--line-dark); color: var(--pearl); }
+  .call-mobile :global(svg) { width: 22px; height: 22px; }
   .nav-mobile { position: relative; }
   .nav-mobile summary { list-style: none; cursor: pointer; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; border: 1px solid var(--line-dark); }
   .nav-mobile summary::-webkit-details-marker { display: none; }
@@ -90,6 +93,6 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   @media (min-width: 1080px) {
     .nav-desktop { display: block; }
     .header-cta { display: inline-flex; }
-    .nav-mobile { display: none; }
+    .nav-mobile, .call-mobile { display: none; }
   }
 </style>

@@ -20,6 +20,7 @@ const fullTitle = title.includes('Simona') ? title : `${title} | Simona's Face P
 const ogImage = new URL(image, site.url).href;
 const allSchema = [businessSchema(), ...schema];
 const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -31,6 +32,7 @@ const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#0c0a0e" />
+    {gscToken && <meta name="google-site-verification" content={gscToken} />}
     <link rel="icon" href="/favicon-32.png" sizes="32x32" />
     <link rel="icon" href="/favicon-192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -56,8 +58,12 @@ const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <Footer />
 
     <a class="wa-fab" href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp" aria-label="Message Simona on WhatsApp">
-      <Icon name="whatsapp" /><span>WhatsApp</span>
+      <Icon name="whatsapp" />
     </a>
+    <nav class="contact-bar" aria-label="Quick contact">
+      <a href={site.phoneHref} data-track="call"><Icon name="phone" /> Call</a>
+      <a class="wa" href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp"><Icon name="whatsapp" /> WhatsApp</a>
+    </nav>
 
     <script>
       // Reveal-on-scroll (content is visible without JS; this is enhancement only)
@@ -85,8 +91,8 @@ const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       // Analytics hook for WhatsApp clicks (Cloudflare Web Analytics counts page views;
       // this custom event is picked up if a tag manager is ever added).
       document.addEventListener('click', (ev) => {
-        const a = (ev.target as Element).closest?.('[data-track="whatsapp"]');
-        if (a) (window as any).dataLayer?.push({ event: 'whatsapp_click', page: location.pathname });
+        const a = (ev.target as Element).closest?.('[data-track]');
+        if (a) (window as any).dataLayer?.push({ event: (a as HTMLElement).dataset.track + '_click', page: location.pathname });
       });
     </script>
     {cfToken && (
@@ -96,15 +102,33 @@ const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 </html>
 
 <style is:global>
+  /* Desktop: floating WhatsApp bubble. Phones: fixed Call / WhatsApp bar. */
   .wa-fab {
-    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 60;
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 18px 12px 14px; border-radius: 999px;
-    background: var(--wa-deep); color: #fff; text-decoration: none; font-weight: 600; font-size: 0.95rem;
-    box-shadow: 0 14px 34px -10px rgba(18, 140, 74, 0.7);
-    transition: transform .2s ease;
+    position: fixed; right: 20px; bottom: 20px; z-index: 60; display: none;
+    width: 60px; height: 60px; place-items: center; border-radius: 50%;
+    background: var(--wa-deep); color: #fff;
+    box-shadow: 0 14px 34px -10px rgba(18, 140, 74, 0.7); transition: transform .2s ease;
   }
-  .wa-fab:hover { transform: translateY(-2px) scale(1.02); }
-  .wa-fab svg { width: 26px; height: 26px; }
-  @media (min-width: 900px) { .wa-fab span { display: none; } .wa-fab { padding: 14px; } .wa-fab svg { width: 30px; height: 30px; } }
+  .wa-fab:hover { transform: translateY(-2px) scale(1.04); }
+  .wa-fab svg { width: 30px; height: 30px; }
+  .contact-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px;
+    padding: 10px max(12px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
+    background: rgba(9, 8, 11, .92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line-dark);
+  }
+  .contact-bar a {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px;
+    border-radius: 999px; font-weight: 600; text-decoration: none; color: var(--pearl);
+    border: 1px solid rgba(243,250,243,.3);
+  }
+  .contact-bar a.wa { background: var(--wa-deep); border-color: var(--wa-deep); color: #fff; }
+  .contact-bar svg { width: 22px; height: 22px; }
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+  @media (min-width: 900px) {
+    .contact-bar { display: none; }
+    .wa-fab { display: grid; }
+    body { padding-bottom: 0; }
+  }
 </style>

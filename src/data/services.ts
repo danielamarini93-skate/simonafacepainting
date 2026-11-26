@@ -21,15 +21,15 @@ export const services: Service[] = [
   {
     slug: 'face-painting-children-adults',
     heroImage: 'adults-8b7c9753.jpg',
-    name: 'Face Painting',
-    title: 'Face Painting for Children & Adults in London',
-    metaTitle: 'Face Painting for Children & Adults | London Face Painter',
+    name: 'Face Painting for Events',
+    title: 'Face Painting for Events, Weddings & Adults in London',
+    metaTitle: 'Event & Adult Face Painting London | Weddings, Festivals',
     metaDescription:
-      'Professional face painting in London for kids and adults: birthdays, weddings, festivals and corporate events. Skin-safe paints, DBS checked & insured.',
-    tagline: 'Hand-painted designs for every age, from first butterflies to elegant festival art.',
+      'Face painting for London events of every size: weddings, festivals, corporate family days and adult parties. Multiple artists, skin-safe paints, insured.',
+    tagline: 'Elegant face art for weddings, festivals and corporate events, for guests of every age.',
     intro: [
-      "Every face is a small canvas. Whether it's a three-year-old's very first butterfly or an elegant floral design for a wedding guest, each look is painted freehand, with care, and matched to the person sitting in the chair.",
-      'We use only professional, skin-safe paints and keep our kits spotless, so the experience is as safe as it is fun, for children and grown-ups alike.',
+      "Big events need a face painter who is fast, reliable and brilliant with every age group. From wedding guests and festival crowds to staff family days, we paint elegant florals, festival looks and children's favourites, so the queue keeps moving and everyone leaves smiling.",
+      'For larger events we bring multiple artists, can match designs to your brand colours or theme, and can combine face painting with a glitter bar or glitter tattoos. Planning a child’s birthday? See our children’s face painting page.',
     ],
     highlights: [
       { title: 'Designs for every guest', text: 'Princesses, superheroes and animals for little ones; festival looks, florals and glamorous eye designs for adults.' },
