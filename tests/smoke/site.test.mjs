@@ -65,7 +65,7 @@ test('hero video has a poster so the page works when autoplay is blocked', async
   await page.close();
 });
 
-test('only one WhatsApp button is visible in the first screen of each page (phone and desktop)', async () => {
+test('no more than one WhatsApp button is visible in the first screen of each page (phone and desktop)', async () => {
   for (const vp of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
     for (const u of ['/', '/pricing/', '/gallery/', '/services/childrens-face-painting/', '/contact/', '/about/']) {
       const page = await browser.newPage({ viewport: vp });
@@ -75,10 +75,23 @@ test('only one WhatsApp button is visible in the first screen of each page (phon
         while (e) { const cs = getComputedStyle(e); if (cs.display === 'none') return false; op *= +cs.opacity; e = e.parentElement; }
         return r.width > 0 && r.bottom > 0 && r.top < innerHeight && op > 0.1;
       }).length);
-      assert.equal(n, 1, `${u} at ${vp.width}px shows ${n} WhatsApp buttons`);
+      assert.ok(n <= 1, `${u} at ${vp.width}px shows ${n} WhatsApp buttons`);
+      if (u === '/') assert.equal(n, 1, 'home hero keeps its WhatsApp button');
       await page.close();
     }
   }
+});
+
+test('nothing is fixed to the bottom of the screen on phones', async () => {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await page.goto(BASE + '/pricing/'); await page.mouse.wheel(0, 2000); await page.waitForTimeout(600);
+  const fixed = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((e) => {
+    const cs = getComputedStyle(e); const r = e.getBoundingClientRect();
+    if (e.closest('details:not([open])')) return false; // closed menu
+    return cs.position === 'fixed' && cs.display !== 'none' && +cs.opacity > 0.1 && r.height > 0 && r.bottom >= innerHeight - 4;
+  }).map((e) => e.className));
+  assert.deepEqual(fixed, []);
+  await page.close();
 });
 
 test('gallery shows every photo without JavaScript', async () => {

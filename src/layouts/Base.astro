@@ -62,10 +62,6 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
     <a class="wa-fab" href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp" aria-label="Message Simona on WhatsApp">
       <Icon name="whatsapp" />
     </a>
-    <nav class="contact-bar" aria-label="Quick contact">
-      <a href={site.phoneHref} data-track="call"><Icon name="phone" /> Call</a>
-      <a class="wa" href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp"><Icon name="whatsapp" /> WhatsApp</a>
-    </nav>
 
     <script>
       // Only one WhatsApp button on screen at the top of a page: floating buttons appear after scrolling.
@@ -108,7 +104,7 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
 </html>
 
 <style is:global>
-  /* Desktop: floating WhatsApp bubble. Phones: fixed Call / WhatsApp bar. */
+  /* Desktop only: floating WhatsApp bubble (nothing fixed at the bottom on phones). */
   .wa-fab {
     position: fixed; right: 20px; bottom: 20px; z-index: 60; display: none;
     width: 60px; height: 60px; place-items: center; border-radius: 50%;
@@ -118,30 +114,12 @@ const gscToken = import.meta.env.PUBLIC_GSC_VERIFICATION;
   .wa-fab:hover { transform: translateY(-2px) scale(1.04); }
   /* Hidden at the top of every page (header / hero already has WhatsApp) */
   body:not(.scrolled-past) .wa-fab { opacity: 0; pointer-events: none; transform: translateY(20px); }
-  .wa-fab, .contact-bar { transition: opacity .3s ease, transform .3s ease; }
+  .wa-fab { transition: opacity .3s ease, transform .3s ease; }
   /* Home page: the hero's own button is the WhatsApp at the top, so the bar waits */
-  body.hero-cta:not(.scrolled-past) .contact-bar { opacity: 0; pointer-events: none; transform: translateY(100%); }
   body.home-hero:not(.scrolled-past) .header-cta,
   body.home-hero:not(.scrolled-past) .call-mobile { display: none; }
   .wa-fab svg { width: 30px; height: 30px; }
-  .contact-bar {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-    display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px;
-    padding: 10px max(12px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
-    background: rgba(9, 8, 11, .92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-top: 1px solid var(--line-dark);
-  }
-  .contact-bar a {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px;
-    border-radius: 999px; font-weight: 500; text-decoration: none; color: var(--pearl);
-    border: 1px solid rgba(243,250,243,.3);
-  }
-  .contact-bar a.wa { background: var(--grad-cta); border-color: transparent; color: #fff; }
-  .contact-bar svg { width: 22px; height: 22px; }
-  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
   @media (min-width: 900px) {
-    .contact-bar { display: none; }
     .wa-fab { display: grid; }
-    body { padding-bottom: 0; }
   }
 </style>

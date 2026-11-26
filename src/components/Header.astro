@@ -64,7 +64,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   .site-header.overlay.scrolled { background: rgba(12,10,14,.94); border-color: var(--line-dark); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
   @media (max-width: 1079px) {
     .site-header, .site-header.overlay.scrolled { border-bottom: 0; }
-    .site-header.overlay { background: linear-gradient(to bottom, rgba(9,8,11,.6), rgba(9,8,11,0)); }
+    .site-header.overlay:not(.scrolled) { background: linear-gradient(to bottom, rgba(9,8,11,.6), rgba(9,8,11,0)); }
+    .site-header.overlay.scrolled, .site-header:not(.overlay) { background: var(--ink); backdrop-filter: none; -webkit-backdrop-filter: none; }
   }
   .bar { display: flex; align-items: center; gap: 10px; min-height: 76px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; margin-right: auto; }
