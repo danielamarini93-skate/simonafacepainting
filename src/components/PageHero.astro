@@ -20,10 +20,9 @@ const { eyebrow, title, lead, image, imageAlt = '', crumbs = [], cta = true, com
 </section>
 <style>
   .page-hero.compact { padding: 28px 0 8px; }
-  /* short header: the photo only shows on wider screens, smaller */
-  @media (max-width: 899px) { .page-hero.compact .art { display: none; } }
-  .page-hero.compact .art { width: min(300px, 100%); }
+  /* short header text; a header photo keeps its full, big arch */
   .page-hero.compact .inner { gap: 24px; }
+  .page-hero.compact:has(.art) { padding-bottom: 32px; }
   .page-hero.compact h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: .3em; }
   .page-hero.compact .lead { margin-bottom: 0; font-size: 1rem; }
   .page-hero { padding: clamp(48px, 7vw, 96px) 0; background: radial-gradient(1100px 520px at 88% -10%, var(--glow-rose), transparent 72%), radial-gradient(900px 480px at -5% 110%, var(--glow-violet), transparent 72%), var(--ink); }
