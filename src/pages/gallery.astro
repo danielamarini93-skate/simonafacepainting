@@ -2,10 +2,10 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
-import GalleryDeck from '../components/GalleryDeck.astro';
+import GalleryWall from '../components/GalleryWall.astro';
 import VideoLoop from '../components/VideoLoop.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { gallery } from '../lib/gallery';
+import { gallery, mix } from '../lib/gallery';
 import { breadcrumbSchema } from '../lib/schema';
 import videos from '../data/videos.json';
 const order = ['kids', 'adults', 'glitter-bar', 'glitter-tattoos', 'seasonal', 'corporate'];
@@ -16,8 +16,8 @@ const items = [...gallery].sort((a, b) => Number(!!b.featured) - Number(!!a.feat
   <section class="section deck-section">
     <div class="wrap center">
       <p class="eyebrow">Favourites</p>
-      <h2>Swipe through the <em>sparkle</em></h2>
-      <GalleryDeck items={items.filter((i) => i.featured)} />
+      <h2>A wall of <em>sparkle</em></h2>
+      <GalleryWall items={mix(42)} rows={3} />
     </div>
   </section>
   <section class="section">

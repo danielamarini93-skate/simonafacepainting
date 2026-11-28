@@ -26,3 +26,13 @@ export function pick(opts: { categories?: Category[]; featured?: boolean; limit?
   return opts.limit ? items.slice(0, opts.limit) : items;
 }
 export const byFile = (file: string) => gallery.find((g) => g.file === file);
+
+/** Interleave categories (featured first within each) so neighbouring photos differ. */
+export function mix(limit?: number): GalleryItem[] {
+  const cats: Category[] = ['kids', 'adults', 'glitter-bar', 'glitter-tattoos', 'seasonal', 'corporate'];
+  const lists = cats.map((c) => pick({ categories: [c], featured: true }));
+  const out: GalleryItem[] = [];
+  for (let i = 0; out.length < (limit ?? gallery.length) && lists.some((l) => l.length > i); i++)
+    for (const l of lists) if (l[i]) out.push(l[i]);
+  return out.slice(0, limit);
+}

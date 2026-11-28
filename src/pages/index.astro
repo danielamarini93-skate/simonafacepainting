@@ -5,18 +5,18 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import TrustStrip from '../components/TrustStrip.astro';
 import ServiceCards from '../components/ServiceCards.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
-import GalleryDeck from '../components/GalleryDeck.astro';
+import GalleryWall from '../components/GalleryWall.astro';
 import VideoLoop from '../components/VideoLoop.astro';
 import Reviews from '../components/Reviews.astro';
 import Logos from '../components/Logos.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
-import { pick, byFile } from '../lib/gallery';
+import { pick, byFile, mix } from '../lib/gallery';
 import { boroughs } from '../data/content';
 import { site, DATE_WA_TEXT } from '../lib/site';
 import simona from '../assets/brand/simona.jpg';
 
-const highlights = pick({ featured: true }).filter((g) => g.featured).slice(0, 12);
+const highlights = mix(30);
 const cardImages = {
   'face-painting-children-adults': 'kids-81ee2067.jpg',
   'childrens-face-painting': 'kids-c0bd6932.jpg',
@@ -110,7 +110,7 @@ const floral = byFile('adults-4a9af00c.jpg')!;
         <h2>A few recent <em>favourites</em></h2>
         <p class="lead">Every design is hand-painted by Simona and her artists at real London parties and events.</p>
       </div>
-      <GalleryDeck items={highlights} />
+      <GalleryWall items={highlights} />
       <div class="center more"><a class="btn" href="/gallery/">View the full gallery <Icon name="arrow" /></a></div>
     </div>
   </section>
