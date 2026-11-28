@@ -1,0 +1,213 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import GalleryWall from '../components/GalleryWall.astro';
+import VideoLoop from '../components/VideoLoop.astro';
+import Reviews from '../components/Reviews.astro';
+import Logos from '../components/Logos.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { pick, byFile, mix } from '../lib/gallery';
+import { boroughs } from '../data/content';
+import { site, DATE_WA_TEXT } from '../lib/site';
+import simona from '../assets/brand/simona.jpg';
+
+const highlights = mix(30);
+const cardImages = {
+  'face-painting-children-adults': 'kids-81ee2067.jpg',
+  'childrens-face-painting': 'kids-c0bd6932.jpg',
+  'glitter-bar-kids-adults': 'glitter-bar-642f25d3.jpg',
+  'glitter-tattoos-children-adults': 'glitter-tattoos-54f2e9e4.jpg',
+  'seasonal-themed-events': 'seasonal-b09d8866.jpg',
+};
+// chosen so the small photo of Simona overlaps only her top, never the face
+const floral = byFile('adults-4a9af00c.jpg')!;
+---
+<Base
+  title="Face Painter London | Face Painting & Glitter Art | Simona's Face Painting"
+  description="Beautiful hand-painted face painting, glitter bar and glitter tattoos for kids’ parties, weddings, festivals and corporate events across London. DBS checked & insured. Message us on WhatsApp."
+  heroOverlay
+>
+  <link slot="head" rel="preload" as="image" href="/video/butterfly.webp" fetchpriority="high" />
+
+  <!-- HERO: name, one line, one button. The video does the talking. -->
+  <section class="hero" data-glitter="36">
+    <div class="hero-media">
+      <video data-loop src="/video/butterfly.mp4" poster="/video/butterfly.webp" muted loop playsinline autoplay preload="metadata" width="478" height="850" aria-label="Simona painting a rainbow butterfly on a child's face"></video>
+    </div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <h1>
+          <span class="display">Simona's</span>
+          <span class="h1-sub">Face Painting & Glitter Art · London</span>
+        </h1>
+        <p class="lead">For parties, weddings and events. From £160.</p>
+        <WhatsAppButton label="Get a free quote" message={DATE_WA_TEXT} />
+      </div>
+      <div class="hero-frame" aria-hidden="true">
+        <video data-loop src="/video/butterfly.mp4" poster="/video/butterfly.webp" muted loop playsinline autoplay preload="metadata" width="478" height="850"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="section--white trust-band">
+    <div class="wrap"><TrustStrip /></div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Bring your event to life</p>
+        <h2>Every guest leaves glowing, and every face <em>tells a story</em></h2>
+        <p>From butterflies to superhero masks and festival glitter, every design is hand-painted with care and matched to your theme, for guests of every age.</p>
+        <ul class="ticks">
+          <li><Icon name="check" /> Quick and efficient, so even big groups stay happy</li>
+          <li><Icon name="check" /> Face painting, glitter tattoos, or a combo of both</li>
+          <li><Icon name="check" /> Multiple artists available for large events</li>
+        </ul>
+      </div>
+      <div class="intro-art" data-reveal>
+        <Image src={floral.src} alt={floral.alt} widths={[400, 720]} sizes="(min-width: 900px) 480px, 90vw" class="a1" />
+        <Image src={simona} alt="Simona at a Pret A Manger corporate event" widths={[400, 720]} sizes="(min-width: 900px) 240px, 45vw" class="a2" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Services</p>
+        <h2>Colour and <em>sparkle</em> for every kind of celebration</h2>
+      </div>
+      <ServiceCards images={cardImages} />
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Kind words</p>
+        <h2>“We can't call her a face painter, she's an artist!”</h2>
+      </div>
+      <Reviews limit={3} />
+      <div class="logos-wrap"><Logos /></div>
+    </div>
+  </section>
+
+  <!-- GALLERY HIGHLIGHTS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Portfolio</p>
+        <h2>A few recent <em>favourites</em></h2>
+        <p class="lead">Every design is hand-painted by Simona and her artists at real London parties and events.</p>
+      </div>
+      <GalleryWall items={highlights} />
+      <div class="center more"><a class="btn" href="/gallery/">View the full gallery <Icon name="arrow" /></a></div>
+    </div>
+  </section>
+
+  <!-- AT WORK (video) -->
+  <section class="section section--pearl">
+    <div class="wrap split split--flip">
+      <div data-reveal>
+        <p class="eyebrow">Behind the brush</p>
+        <h2>A professional kit, a steady hand and a lot of patience</h2>
+        <p>We arrive about 15 minutes early, set up a clean, colourful station and get painting. Our professional, FDA and EU-approved paints and cosmetic-grade glitters are applied with fresh sponges and sanitised brushes for every guest.</p>
+        <p>One artist paints around 10 detailed designs an hour, or up to 15 quick designs for busy events, so queues keep moving and nobody misses out.</p>
+        <div class="btn-row"><a class="btn btn--pink" href="/pricing/">See prices</a><a class="btn btn--ghost" href="/faqs/">Read the FAQs</a></div>
+      </div>
+      <div class="duo" data-reveal>
+        <VideoLoop id="kit" />
+        <VideoLoop id="reindeer" />
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section class="section">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">Areas we cover</p>
+        <h2>Face painting across <em>London</em> & beyond</h2>
+        <p>Based in London, we travel up to about an hour by car or public transport, covering every London borough plus nearby towns in Surrey, Kent and Essex.</p>
+        <a class="btn" href="/areas-we-cover/">See all areas <Icon name="arrow" /></a>
+      </div>
+      <ul class="pills" data-reveal>
+        {boroughs.slice(0, 18).map((b) => <li>{b}</li>)}
+        <li class="plus"><a href="/areas-we-cover/">+ many more</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  /* Hero */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: var(--pearl); background: var(--ink); overflow: hidden; padding: 110px 0 44px; }
+  /* Phone: video sits at the top at its natural shape; the text goes below the child's face */
+  .hero-media { position: absolute; top: 0; left: 0; width: 100%; height: min(calc(100vw * 850 / 478), 76svh); overflow: hidden; }
+  .hero-media video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+  /* clear at the top so the video shows; dark only where the text sits */
+  .hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,8,11,.3) 0%, rgba(9,8,11,0) 16%, rgba(9,8,11,0) 62%, rgba(9,8,11,.75) 84%, var(--ink) 100%); }
+  .hero-inner { position: relative; z-index: 2; display: grid; gap: 48px; align-items: center; width: min(100% - 2 * var(--gutter), var(--wrap)); }
+  .hero-copy { max-width: 620px; }
+  .hero h1 { margin: 0 0 .5em; }
+  .hero h1 .display { display: block; font-style: italic; font-size: clamp(3.4rem, 9vw, 6.8rem); line-height: 1.05; padding: .02em .12em .06em 0; margin-left: -.02em; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; overflow: visible; }
+  .hero h1 .h1-sub { display: block; font-family: var(--font-body); font-size: clamp(.78rem, 1.2vw, .98rem); font-weight: 400; letter-spacing: .3em; text-transform: uppercase; margin-top: .9em; color: var(--pearl); }
+  .hero .lead { color: rgba(243,250,243,.86); margin-bottom: 1.4em; }
+  @media (max-width: 520px) { .hero h1 .h1-sub { letter-spacing: .18em; font-size: .72rem; } }
+  .hero-frame { display: none; position: relative; justify-self: end; width: min(400px, 100%); }
+  .hero-frame video { width: 100%; aspect-ratio: 478/850; object-fit: cover; border-radius: 999px 999px var(--radius-lg) var(--radius-lg); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 40px 140px -40px rgba(150,80,210,.5); }
+  @media (min-width: 960px) {
+    .hero { align-items: center; padding: 120px 0 72px; }
+    .hero-media { display: none; }
+    .hero { background: radial-gradient(1100px 760px at 82% 38%, var(--glow-rose), transparent 70%), radial-gradient(1000px 700px at 5% 95%, var(--glow-violet), transparent 70%), var(--ink); }
+    .hero-inner { grid-template-columns: 1.15fr .85fr; }
+    .hero-frame { display: block; }
+  }
+
+  .trust-band { padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .head { margin-bottom: clamp(32px, 4vw, 56px); }
+  .more { margin-top: 36px; }
+  .ticks { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 10px; }
+  .ticks li { display: flex; gap: 10px; align-items: flex-start; }
+  .ticks :global(svg) { color: var(--pink); flex: none; margin-top: 4px; width: 20px; height: 20px; }
+
+  .intro-art { position: relative; padding-bottom: 40px; }
+  .intro-art :global(.a1) { width: 82%; aspect-ratio: 4/5; object-fit: cover; border-radius: 240px 240px var(--radius-lg) var(--radius-lg); }
+  .intro-art :global(.a2) { position: absolute; right: 0; bottom: 0; width: 36%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius-lg); border: 4px solid var(--ink); box-shadow: 0 18px 40px -18px rgba(0,0,0,.7); }
+
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .duo :global(.video-loop) { aspect-ratio: 9/16; }
+  .duo :global(.video-loop:last-child) { margin-top: 48px; }
+
+  .logos-wrap { margin-top: clamp(48px, 6vw, 80px); }
+
+  .pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .pills li { padding: 8px 16px; border-radius: 2px; background: var(--paper); border: 1px solid var(--line); font-size: .92rem; }
+  .pills .plus { background: var(--pink-soft); border-color: transparent; }
+  .pills .plus a { text-decoration: none; font-weight: 500; color: var(--pink-text); }
+
+  /* Arch reveal: the arch opens like a window as it scrolls into view (browsers that support scroll-driven animation) */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .intro-art :global(.a1) { animation: arch-open linear both; animation-timeline: view(); animation-range: entry 5% cover 45%; }
+      .intro-art :global(.a2) { animation: inset-rise linear both; animation-timeline: view(); animation-range: entry 20% cover 50%; }
+    }
+  }
+  @keyframes arch-open {
+    from { clip-path: inset(30% 38% 0 38% round 240px 240px 6px 6px); transform: scale(1.06); filter: saturate(.6); }
+    to { clip-path: inset(0 0 0 0 round 240px 240px 6px 6px); transform: none; filter: none; }
+  }
+  @keyframes inset-rise { from { transform: translateY(40px) rotate(4deg); opacity: 0; } to { transform: none; opacity: 1; } }
+</style>

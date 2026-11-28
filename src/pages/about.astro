@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import VideoLoop from '../components/VideoLoop.astro';
+import Reviews from '../components/Reviews.astro';
+import Logos from '../components/Logos.astro';
+import CtaBand from '../components/CtaBand.astro';
+import simona from '../assets/brand/simona.jpg';
+import { breadcrumbSchema } from '../lib/schema';
+---
+<Base title="About Simona | London Face Painter & Glitter Artist" description="Meet Simona and her team of professional face painters and glitter artists, bringing colour and sparkle to London birthdays, festivals and corporate events." schema={[breadcrumbSchema([{ name: 'About', path: '/about/' }])]}>
+  <PageHero eyebrow="About us" title="Hi, I'm Simona" lead="Face painter and glitter artist for parties and events across London." image={simona} imageAlt="Simona at the Pret A Manger corporate event" crumbs={[{ name: 'About', path: '/about/' }]} />
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose" data-reveal>
+        <p class="lead">Face painting and glitter magic have a way of making everyone smile, big time! That's what I fell in love with, and it's what I bring to every event.</p>
+        <p>Using only top-quality, skin-safe paints and biodegradable glitter, my artists and I make sure every design brings joy and excitement to your celebration, whether it's a few excited four-year-olds at a birthday party or hundreds of guests at a festival.</p>
+        <p>From a child's birthday to a large corporate event, we can provide multiple artists so every guest is painted professionally, quickly and with a big smile.</p>
+        <h2>Events we cover</h2>
+        <ul>
+          <li><strong>Private:</strong> birthdays, christenings, weddings, hen parties</li>
+          <li><strong>Community:</strong> school fairs, festivals, fêtes and fun days</li>
+          <li><strong>Corporate:</strong> staff parties, family days, brand activations and store events</li>
+          <li><strong>Seasonal & themed:</strong> Halloween, Christmas, Pride, Day of the Dead</li>
+        </ul>
+      </div>
+      <div data-reveal class="vid"><VideoLoop id="butterfly" /></div>
+    </div>
+  </section>
+  <section class="section section--white"><div class="wrap"><TrustStrip /></div></section>
+  <section class="section">
+    <div class="wrap">
+      <div class="center head"><p class="eyebrow">Kind words</p><h2>What our clients say</h2></div>
+      <Reviews limit={3} />
+      <div class="logos"><Logos /></div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .vid { max-width: 380px; justify-self: center; width: 100%; }
+  .vid :global(.video-loop) { aspect-ratio: 9/16; border-radius: 999px 999px var(--radius-lg) var(--radius-lg); }
+  .head { margin-bottom: 36px; }
+  .logos { margin-top: 64px; }
+</style>

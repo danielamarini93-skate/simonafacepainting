@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import { clients } from '../data/content';
+import type { ImageMetadata } from 'astro';
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/logos/*.jpg', { eager: true });
+const get = (f: string) => Object.entries(files).find(([p]) => p.endsWith(f))![1].default;
+---
+<div class="logos">
+  <p class="eyebrow">Trusted by</p>
+  <ul>
+    {clients.map((c) => <li><Image src={get(c.file)} alt={c.name} height={64} width={Math.round(64 * get(c.file).width / get(c.file).height)} /></li>)}
+  </ul>
+</div>
+<style>
+  .logos { text-align: center; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(18px, 4vw, 48px); }
+  li :global(img) { height: 52px; width: auto; mix-blend-mode: screen; filter: grayscale(1) invert(1); opacity: .7; transition: .3s; }
+  li:hover :global(img) { opacity: 1; }
+</style>

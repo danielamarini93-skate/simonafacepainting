@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsappUrl } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+---
+<Base title="Contact & Bookings | Message Simona on WhatsApp" description="Book a face painter in London. Message Simona on WhatsApp, call 07459 889053 or send an enquiry with your date, area and number of guests." schema={[breadcrumbSchema([{ name: 'Contact', path: '/contact/' }])]} heroCta>
+  <PageHero compact title="Get in touch" lead="WhatsApp is quickest. Simona usually replies the same day." crumbs={[{ name: 'Contact', path: '/contact/' }]} cta={false} />
+  <section class="section contact-section">
+    <div class="wrap contact">
+      <div class="ways">
+        <a class="way wa" href={whatsappUrl()} target="_blank" rel="noopener" data-track="whatsapp"><span class="ic"><Icon name="whatsapp" /></span><span><strong>WhatsApp</strong><small>Fastest reply, usually same day</small></span></a>
+        <a class="way" href={site.phoneHref}><span class="ic"><Icon name="phone" /></span><span><strong>Call</strong><small>{site.phoneDisplay}</small></span></a>
+        <a class="way" href={`mailto:${site.email}`}><span class="ic"><Icon name="mail" /></span><span><strong>Email</strong><small>{site.email}</small></span></a>
+        <a class="way" href={site.instagram} target="_blank" rel="noopener"><span class="ic"><Icon name="instagram" /></span><span><strong>Instagram</strong><small>@simonasfacepainting</small></span></a>
+      </div>
+
+      <form class="card form" name="enquiry" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
+        <h2 class="h3">Or send an enquiry</h2>
+        <input type="hidden" name="form-name" value="enquiry" />
+        <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+        <div class="row">
+          <label>Name*<input name="name" required autocomplete="name" /></label>
+          <label>Phone<input name="phone" type="tel" autocomplete="tel" /></label>
+        </div>
+        <label>Email*<input name="email" type="email" required autocomplete="email" /></label>
+        <div class="row">
+          <label>Event type
+            <select name="event-type">
+              <option>Birthday party</option><option>Corporate event</option><option>Wedding</option><option>School fair / festival</option><option>Halloween / seasonal</option><option>Other</option>
+            </select>
+          </label>
+          <label>Date<input name="date" type="date" /></label>
+        </div>
+        <div class="row">
+          <label>Area / postcode<input name="location" /></label>
+          <label>Number of guests<input name="guests" inputmode="numeric" /></label>
+        </div>
+        <label>Message<textarea name="message" rows="4" placeholder="Times, theme, face painting / glitter…"></textarea></label>
+        <button class="btn btn--pink" type="submit">Send enquiry</button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+
+<style>
+  .contact-section { padding-top: 20px; }
+  .contact { display: grid; gap: 32px; align-items: start; }
+  @media (min-width: 960px) { .contact { grid-template-columns: .9fr 1.1fr; } }
+  .ways { display: grid; gap: 10px; }
+  .way { display: flex; gap: 14px; align-items: center; padding: 12px 16px; line-height: 1.35; border-radius: var(--radius); background: var(--paper); border: 1px solid var(--line); text-decoration: none; transition: .2s; }
+  .way:hover { border-color: var(--pink); transform: translateY(-2px); }
+  .way strong { display: block; } .way small { color: var(--muted); overflow-wrap: anywhere; }
+  .ic { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--pink-soft); color: var(--pink-text); flex: none; }
+  .wa .ic { background: var(--grad-cta); color: #fff; }
+  .wa-main { margin-top: 8px; }
+  .wa-main :global(.btn) { width: 100%; }
+  .form { display: grid; gap: 14px; }
+  .h3 { font-size: 1.4rem; }
+  .row { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  label { display: grid; gap: 6px; font-weight: 500; font-size: .9rem; }
+  input, select, textarea { font: inherit; font-weight: 400; padding: 12px 14px; border-radius: 3px; border: 1px solid var(--line); background: var(--cream); color: var(--text); min-height: 48px; width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--pink); border-color: transparent; }
+  .hp { position: absolute; left: -9999px; }
+  .form .btn { justify-self: start; }
+</style>

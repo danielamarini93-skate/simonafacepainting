@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+import { whatsappUrl } from '../lib/site';
+interface Props { text?: string; label?: string; class?: string; message?: string; }
+const { label = 'Message Simona on WhatsApp', class: cls = '', message } = Astro.props;
+---
+<a class={`btn btn--wa ${cls}`} href={whatsappUrl(message)} target="_blank" rel="noopener" data-track="whatsapp">
+  <Icon name="whatsapp" /> <span>{label}</span>
+</a>

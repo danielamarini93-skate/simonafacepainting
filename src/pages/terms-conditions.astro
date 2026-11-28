@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../lib/site';
+---
+<Base title="Terms & Conditions" description="Booking terms and conditions for Simona's Face Painting services in London.">
+  <PageHero title="Terms & Conditions" lead="Last updated: November 2026" crumbs={[{ name: 'Terms & Conditions', path: '/terms-conditions/' }]} cta={false} />
+  <section class="section"><div class="wrap narrow prose">
+    <p>These terms apply to all bookings with Simona's Face Painting. By confirming a booking, you agree to them. Your quote and booking confirmation will set out the date, times, services, price and any deposit or cancellation arrangements.</p>
+    <h2>Bookings & timings</h2>
+    <ul>
+      <li>The minimum booking is two hours during our busy seasons (May–August and October–December).</li>
+      <li>We usually arrive around 15 minutes before the start time. Set-up and pack-down are not included in the booked time.</li>
+      <li>If you'd like us to arrive more than one hour before the start, a standby fee applies.</li>
+      <li>A travel fee may apply for venues outside our usual areas; this will be included in your quote.</li>
+    </ul>
+    <h2>Your venue</h2>
+    <ul>
+      <li>Please tell us in advance about access, parking restrictions or special directions.</li>
+      <li>Please provide good lighting and, for outdoor events, a covered area to work under.</li>
+      <li>For smaller set-ups we may ask you to provide a table and two chairs; we'll confirm this when you book.</li>
+    </ul>
+    <h2>Health & safety</h2>
+    <ul>
+      <li>We use professional, FDA and EU-approved face paints, cosmetic-grade glitters and make-up. Reactions are extremely rare but cannot be ruled out; products are applied at the client's own risk.</li>
+      <li>Our insurance does not cover face painting for children under 3. At a parent's discretion we can paint a small design on the arm of children aged 2–3. The glitter bar is for ages 7+.</li>
+      <li>We won't paint anyone with cold sores, conjunctivitis, open wounds or contagious skin or eye infections.</li>
+      <li>We assume any child under 16 who queues to be painted has the consent of a parent, guardian or supervising adult unless told otherwise.</li>
+      <li>Paint on clothing normally washes out, but we cannot be held responsible for permanent staining.</li>
+    </ul>
+    <h2>Allergies & sensitive skin</h2>
+    <ul>
+      <li>Please tell us before the event about any known allergies or sensitive skin, and let guests (or their parents) know they can ask for a design on the arm or hand instead.</li>
+      <li>Anyone with a known allergy to cosmetics can ask for a small patch test before being painted.</li>
+      <li>If a reaction occurs, remove the paint straight away with water and a soft cloth, avoiding soap and baby wipes.</li>
+    </ul>
+    <h2>Deposits, payment & cancellations</h2>
+    <p>Any deposit, the balance due date and the cancellation terms are set out in your booking confirmation. Your date is only reserved once the booking is confirmed in writing.</p>
+    <h2>Conduct</h2>
+    <p>We will not paint imagery that could be considered offensive, indecent or inappropriate. Abusive or threatening behaviour towards our artists will not be tolerated and may end the booking without refund.</p>
+    <h2>Photography</h2>
+    <p>We may take photos of our designs for our portfolio. For children we always ask parental consent first. See our <a href="/privacy-policy/">Privacy Policy</a>.</p>
+    <h2>Questions</h2>
+    <p>Contact us at <a href={`mailto:${site.email}`}>{site.email}</a> or {site.phoneDisplay}.</p>
+  </div></section>
+</Base>

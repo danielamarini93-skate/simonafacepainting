@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { boroughs, towns } from '../data/content';
+import { breadcrumbSchema } from '../lib/schema';
+import { byFile } from '../lib/gallery';
+const img = byFile('kids-834bb46a.jpg');
+---
+<Base title="Areas We Cover | Face Painters Across London & Surrounding Towns" description="Face painters and glitter artists covering all of London: Southwark, Lambeth, Croydon, Wandsworth, Richmond, Bromley, Hackney and more, plus Surrey, Kent and Essex." schema={[breadcrumbSchema([{ name: 'Areas we cover', path: '/areas-we-cover/' }])]}>
+  <PageHero eyebrow="Areas we cover" title="Face painters across London" lead="All of London and nearby towns, up to about an hour away." image={img?.src} imageAlt={img?.alt} crumbs={[{ name: 'Areas we cover', path: '/areas-we-cover/' }]} />
+  <section class="section">
+    <div class="wrap grid grid-2">
+      <div class="card" data-reveal>
+        <h2 class="h3">London boroughs & districts</h2>
+        <ul class="pills">{boroughs.map((b) => <li>{b}</li>)}</ul>
+      </div>
+      <div class="card" data-reveal>
+        <h2 class="h3">Surrounding towns & counties</h2>
+        <ul class="pills">{towns.map((b) => <li>{b}</li>)}</ul>
+        <h2 class="h3 mt">Not sure if we cover your area?</h2>
+        <p class="muted">Just get in touch! We may still be able to travel to you. In some cases a small travel fee applies for bookings outside our usual areas.</p>
+        <WhatsAppButton label="Check my area" message={"Hi Simona! Do you cover my area?\nPostcode: \nDate: "} />
+      </div>
+    </div>
+  </section>
+  <CtaBand title="We bring colour, glitter and smiles to events all across London" />
+</Base>
+<style>
+  .h3 { font-size: 1.35rem; }
+  .mt { margin-top: 28px; }
+  .pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills li { padding: 7px 14px; border-radius: 2px; background: var(--cream); border: 1px solid var(--line); font-size: .92rem; }
+</style>

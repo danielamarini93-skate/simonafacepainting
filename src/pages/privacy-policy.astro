@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../lib/site';
+---
+<Base title="Privacy Policy" description="How Simona's Face Painting collects, uses and protects your personal information.">
+  <PageHero title="Privacy Policy" lead="Last updated: November 2026" crumbs={[{ name: 'Privacy Policy', path: '/privacy-policy/' }]} cta={false} />
+  <section class="section"><div class="wrap narrow prose">
+    <p>Simona's Face Painting ("we", "us") respects your privacy. This policy explains what personal information we collect when you visit this website or book our services, and how we use it, in line with the UK GDPR and the Data Protection Act 2018.</p>
+    <h2>What we collect</h2>
+    <ul>
+      <li><strong>Enquiries & bookings:</strong> your name, phone number, email address, event date, location, number of guests and any details you share with us by WhatsApp, phone, email or our enquiry form.</li>
+      <li><strong>Photos:</strong> photos or videos of our designs taken at events, only with permission, and for children only with parental consent.</li>
+      <li><strong>Website analytics:</strong> we use Cloudflare Web Analytics, which counts visits without cookies and without identifying you personally.</li>
+    </ul>
+    <h2>How we use it</h2>
+    <ul>
+      <li>To reply to your enquiry, prepare a quote and deliver your booking.</li>
+      <li>To keep basic records for accounting and insurance purposes.</li>
+      <li>To show examples of our work on this website and our social media, with permission. You can ask us to remove any photo at any time.</li>
+    </ul>
+    <p>We never sell your information. We only share it where needed to deliver our service (for example, with an artist from our team who is covering your event) or where required by law.</p>
+    <h2>How long we keep it</h2>
+    <p>Enquiry details are kept for up to 12 months. Booking records are kept for up to 6 years for tax and insurance purposes.</p>
+    <h2>Your rights</h2>
+    <p>You can ask to see, correct or delete the information we hold about you, or object to how we use it. Contact us at <a href={`mailto:${site.email}`}>{site.email}</a>. You also have the right to complain to the Information Commissioner's Office (ico.org.uk).</p>
+    <h2>Cookies</h2>
+    <p>This website does not use advertising or tracking cookies.</p>
+    <h2>Contact</h2>
+    <p>Simona's Face Painting, London · <a href={`mailto:${site.email}`}>{site.email}</a> · {site.phoneDisplay}</p>
+  </div></section>
+</Base>

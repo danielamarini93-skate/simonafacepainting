@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { eyebrow?: string; title: string; lead?: string; image?: ImageMetadata; imageAlt?: string; crumbs?: { name: string; path: string }[]; cta?: boolean; compact?: boolean; }
+const { eyebrow, title, lead, image, imageAlt = '', crumbs = [], cta = true, compact = true } = Astro.props;
+---
+<section class:list={['page-hero section--dark', { compact }]}>
+  <div class="wrap inner" class:list={[{ 'has-img': !!image }]}>
+    <div class="copy">
+      {crumbs.length > 0 && (
+        <nav aria-label="Breadcrumb" class="crumbs"><a href="/">Home</a>{crumbs.map((c, i) => <><span aria-hidden="true">/</span>{i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.path}>{c.name}</a>}</>)}</nav>
+      )}
+      {eyebrow && !compact && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+      {cta && !compact && Astro.slots.has('actions') && <div class="btn-row"><slot name="actions" /></div>}
+    </div>
+    {image && <div class="art"><Image src={image} alt={imageAlt} widths={[400, 720]} sizes="(min-width: 900px) 440px, 90vw" loading="eager" fetchpriority="high" /></div>}
+  </div>
+</section>
+<style>
+  .page-hero.compact { padding: 28px 0 8px; }
+  /* short header text; a header photo keeps its full, big arch */
+  .page-hero.compact .inner { gap: 24px; }
+  .page-hero.compact:has(.art) { padding-bottom: 32px; }
+  .page-hero.compact h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: .3em; }
+  .page-hero.compact .lead { margin-bottom: 0; font-size: 1rem; }
+  .page-hero { padding: clamp(48px, 7vw, 96px) 0; background: radial-gradient(1100px 520px at 88% -10%, var(--glow-rose), transparent 72%), radial-gradient(900px 480px at -5% 110%, var(--glow-violet), transparent 72%), var(--ink); }
+  .inner { display: grid; gap: 40px; align-items: center; }
+  @media (min-width: 900px) { .inner.has-img { grid-template-columns: 1.2fr .8fr; } }
+  .lead { color: var(--muted-on-dark); }
+  .art { justify-self: center; width: min(440px, 100%); }
+  .art :global(img) { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 220px 220px var(--radius-lg) var(--radius-lg); box-shadow: 0 30px 80px -30px rgba(155,47,217,.5); }
+  .crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-size: .85rem; color: var(--muted-on-dark); margin-bottom: 18px; }
+  .crumbs a { color: inherit; }
+  h1 { max-width: 20ch; }
+</style>

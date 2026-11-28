@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import GalleryWall from '../components/GalleryWall.astro';
+import VideoLoop from '../components/VideoLoop.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { gallery, mix } from '../lib/gallery';
+import { breadcrumbSchema } from '../lib/schema';
+import videos from '../data/videos.json';
+const order = ['kids', 'adults', 'glitter-bar', 'glitter-tattoos', 'seasonal', 'corporate'];
+const items = [...gallery].sort((a, b) => Number(!!b.featured) - Number(!!a.featured) || order.indexOf(a.category) - order.indexOf(b.category));
+---
+<Base title="Face Painting Gallery | Kids, Adults, Glitter & Halloween Designs" description="Browse our face painting portfolio: children's designs, adult face art, glitter bar looks, glitter tattoos and Halloween & Day of the Dead designs from London events." schema={[breadcrumbSchema([{ name: 'Gallery', path: '/gallery/' }])]}>
+  <PageHero compact title="Gallery" lead="Real designs from London parties and events. Tap a photo to see it larger." crumbs={[{ name: 'Gallery', path: '/gallery/' }]} cta={false} />
+  <section class="section deck-section">
+    <div class="wrap center">
+      <h2 class="sr-only">Favourite designs</h2>
+      <GalleryWall items={mix(42)} rows={3} />
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="center head"><p class="eyebrow">Every design</p><h2>Browse by style</h2></div>
+      <GalleryGrid items={items} filters eager={0} />
+    </div>
+  </section>
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="center head"><p class="eyebrow">Videos</p><h2>Watch Simona at work</h2></div>
+      <ul class="vids">
+        {videos.map((v) => <li><VideoLoop id={v.id} /><p>{v.title}</p></li>)}
+      </ul>
+      <p class="center insta">More every week on <a href="https://www.instagram.com/simonasfacepainting/" target="_blank" rel="noopener">Instagram @simonasfacepainting</a></p>
+    </div>
+  </section>
+  <CtaBand title="Love what you see?" />
+</Base>
+<style>
+  .head { margin-bottom: 40px; }
+  .deck-section { padding-top: 18px; padding-bottom: 0; }
+  .vids { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); max-width: 960px; margin-inline: auto; }
+  .vids :global(.video-loop) { aspect-ratio: 9/16; }
+  .vids p { margin: 10px 0 0; font-size: .92rem; color: var(--muted-on-dark); text-align: center; }
+  .insta { margin-top: 36px; }
+</style>

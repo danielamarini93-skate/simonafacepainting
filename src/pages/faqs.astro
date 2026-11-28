@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqs } from '../data/content';
+import { faqSchema, breadcrumbSchema } from '../lib/schema';
+const groups = ['Booking', 'On the day', 'Safety & products'] as const;
+---
+<Base title="Face Painting FAQs | Booking, Safety & Products" description="Answers to common questions about booking a face painter in London: minimum booking, how many faces per hour, set-up, age policy, skin-safe products and paint removal." schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'FAQs', path: '/faqs/' }])]}>
+  <PageHero eyebrow="FAQs" title="Frequently asked questions" lead="Can't find your answer? Message us on WhatsApp." crumbs={[{ name: 'FAQs', path: '/faqs/' }]} />
+  <section class="section">
+    <div class="wrap narrow">
+      {groups.map((g) => (<div class="group"><h2>{g}</h2><FaqList items={faqs.filter((f) => f.group === g)} /></div>))}
+      <div class="group"><h2>Photography & privacy</h2><p>By booking us, you give permission for event photos to be taken. For children, we always ask parental consent before taking or sharing photos. Images may be used on our website or social media, but we respect your decision if you prefer not to be included. See our <a href="/privacy-policy/">Privacy Policy</a>.</p></div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>.group { margin-bottom: 56px; } .group h2 { font-size: 1.6rem; }</style>

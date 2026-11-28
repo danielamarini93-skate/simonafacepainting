@@ -1,0 +1,114 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import VideoLoop from '../../components/VideoLoop.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import FaqList from '../../components/FaqList.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
+import Icon from '../../components/Icon.astro';
+import { services, type Service } from '../../data/services';
+import { getFaqs } from '../../data/content';
+import { pick, byFile } from '../../lib/gallery';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service: s } = Astro.props as { service: Service };
+const path = `/services/${s.slug}/`;
+const photos = pick({ categories: s.gallery, featured: true });
+const hero = byFile(s.heroImage) ?? photos[0];
+const faqs = getFaqs(s.faqIds);
+const crumbs = [{ name: 'Services', path: '/services/' }, { name: s.name, path }];
+---
+<Base
+  title={s.metaTitle}
+  description={s.metaDescription}
+  image={hero?.src.src}
+  schema={[serviceSchema(s.name, s.metaDescription, path), breadcrumbSchema(crumbs), ...(faqs.length ? [faqSchema(faqs)] : [])]}
+>
+  <PageHero eyebrow="Services" title={s.title} lead={s.tagline} image={hero?.src} imageAlt={hero?.alt} crumbs={crumbs}>
+    <a slot="actions" class="btn btn--ghost" href="#work">See examples <Icon name="arrow" /></a>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose" data-reveal>
+        {s.intro.map((p, i) => <p class={i === 0 ? 'lead strong' : ''}>{p}</p>)}
+        {s.sections?.map((sec) => (<><h2>{sec.heading}</h2>{sec.text.map((t) => <p>{t}</p>)}</>))}
+      </div>
+      <aside class="card ideal" data-reveal>
+        <p class="eyebrow">Perfect for</p>
+        <ul>{s.idealFor.map((i) => <li><Icon name="sparkle" /> {i}</li>)}</ul>
+        <hr />
+        <p class="small">Prices start from <strong>£160</strong> for a 2-hour private party. <a href="/pricing/">See pricing</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--pearl">
+    <div class="wrap">
+      <ul class="highlights grid grid-3">
+        {s.highlights.map((h) => <li class="card" data-reveal><span class="num"><Icon name="sparkle" /></span><h3>{h.title}</h3><p class="muted">{h.text}</p></li>)}
+      </ul>
+      <div class="trust-wrap"><TrustStrip /></div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="center head">
+        <p class="eyebrow">Portfolio</p>
+        <h2>{s.name}: recent work</h2>
+      </div>
+      {s.video ? (
+        <div class="with-video">
+          <VideoLoop id={s.video} class="sv" />
+          <GalleryGrid items={photos.slice(0, 16)} id="service-gallery" />
+        </div>
+      ) : <GalleryGrid items={photos.slice(0, 16)} id="service-gallery" />}
+      <div class="center more"><a class="btn" href="/gallery/">View the full gallery <Icon name="arrow" /></a></div>
+    </div>
+  </section>
+
+  {faqs.length > 0 && (
+    <section class="section section--white">
+      <div class="wrap narrow">
+        <p class="eyebrow">Good to know</p>
+        <h2>Frequently asked questions</h2>
+        <FaqList items={faqs} />
+        <p class="more"><a href="/faqs/">Read all face painting FAQs →</a></p>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="center head"><p class="eyebrow">More services</p><h2>Mix and match for your event</h2></div>
+      <ServiceCards exclude={s.slug} />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .strong { color: var(--text); }
+  .ideal { position: sticky; top: 100px; align-self: start; }
+  .ideal ul { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 10px; }
+  .ideal li { display: flex; gap: 10px; align-items: center; }
+  .ideal :global(svg) { width: 16px; height: 16px; color: var(--pink); flex: none; }
+  .ideal hr { border: 0; border-top: 1px solid var(--line); margin: 18px 0; }
+  .small { font-size: .95rem; margin: 0; }
+  .highlights { list-style: none; margin: 0; padding: 0; }
+  .num { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--pink-soft); color: var(--pink-text); margin-bottom: 14px; }
+  .num :global(svg) { width: 20px; height: 20px; }
+  .trust-wrap { margin-top: 48px; }
+  .head { margin-bottom: 40px; }
+  .more { margin-top: 32px; }
+  .with-video { display: grid; gap: 16px; }
+  .with-video :global(.sv) { aspect-ratio: 9/16; max-width: 340px; width: 100%; justify-self: center; }
+  @media (min-width: 900px) { .with-video { grid-template-columns: 300px 1fr; align-items: start; } .with-video :global(.sv) { position: sticky; top: 100px; } }
+</style>

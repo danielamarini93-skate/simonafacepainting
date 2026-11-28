@@ -1,0 +1,35 @@
+---
+import Icon from './Icon.astro';
+import { reviews } from '../data/content';
+import { site } from '../lib/site';
+interface Props { limit?: number }
+const { limit = 6 } = Astro.props;
+---
+<div class="reviews">
+  <div class="rating">
+    <span class="stars">{[1,2,3,4,5].map(() => <Icon name="star" />)}</span>
+    <span><strong>{site.googleRating}</strong> on Google{site.googleReviewCount ? ` (${site.googleReviewCount} reviews)` : ''} · <a href={site.googleMaps} target="_blank" rel="noopener">Read all reviews on Google</a></span>
+  </div>
+  <ul class="cols">
+    {reviews.slice(0, limit).map((r) => (
+      <li class="card review" data-reveal>
+        <span class="stars sm">{[1,2,3,4,5].map(() => <Icon name="star" />)}</span>
+        <blockquote>“{r.text}”</blockquote>
+        <p class="who">{r.name}</p>
+      </li>
+    ))}
+  </ul>
+</div>
+<style>
+  .reviews ul { list-style: none; margin: 0; padding: 0; }
+  .rating { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin-bottom: 36px; }
+  .rating a { color: inherit; }
+  .stars { display: inline-flex; color: var(--gold); }
+  .stars :global(svg) { width: 22px; height: 22px; }
+  .stars.sm :global(svg) { width: 16px; height: 16px; }
+  .cols { columns: 3 300px; column-gap: 20px; }
+  .cols li { break-inside: avoid; margin-bottom: 20px; }
+  .review { display: flex; flex-direction: column; gap: 14px; }
+  blockquote { margin: 0; font-style: italic; line-height: 1.65; flex: 1; }
+  .who { margin: 0; font-family: var(--font-body); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; font-size: .82rem; color: var(--pink-text); }
+</style>
