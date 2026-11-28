@@ -76,7 +76,9 @@ test('no more than one WhatsApp button is visible in the first screen of each pa
         while (e) { const cs = getComputedStyle(e); if (cs.display === 'none') return false; op *= +cs.opacity; e = e.parentElement; }
         return r.width > 0 && r.bottom > 0 && r.top < innerHeight && op > 0.1;
       }).length + (document.querySelector('.plan a[href*="wa.me"]') && [...document.querySelectorAll('.plan a[href*="wa.me"]')].some((a) => { const r = a.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && getComputedStyle(a).display !== 'none'; }) ? 1 : 0));
-      assert.ok(n <= 1, `${u} at ${vp.width}px shows ${n} WhatsApp buttons`);
+      // contact page: the header's 'Get a quote' stays visible by request, next to the page's own WhatsApp card
+      const max = u === '/contact/' && vp.width >= 1080 ? 2 : 1;
+      assert.ok(n <= max, `${u} at ${vp.width}px shows ${n} WhatsApp buttons`);
       if (u === '/') assert.equal(n, 1, 'home hero keeps its WhatsApp button');
       await page.close();
     }
