@@ -70,11 +70,12 @@ test('no more than one WhatsApp button is visible in the first screen of each pa
     for (const u of ['/', '/pricing/', '/gallery/', '/services/childrens-face-painting/', '/contact/', '/about/']) {
       const page = await browser.newPage({ viewport: vp });
       await page.goto(BASE + u); await page.waitForTimeout(500);
-      const n = await page.evaluate(() => [...document.querySelectorAll('a[href*="wa.me"]')].filter((a) => {
+      // the three plan cards on /pricing/ are one choice (pick a package), counted once
+      const n = await page.evaluate(() => [...document.querySelectorAll('a[href*="wa.me"]:not(.plan a)')].filter((a) => {
         const r = a.getBoundingClientRect(); let e = a, op = 1;
         while (e) { const cs = getComputedStyle(e); if (cs.display === 'none') return false; op *= +cs.opacity; e = e.parentElement; }
         return r.width > 0 && r.bottom > 0 && r.top < innerHeight && op > 0.1;
-      }).length);
+      }).length + (document.querySelector('.plan a[href*="wa.me"]') && [...document.querySelectorAll('.plan a[href*="wa.me"]')].some((a) => { const r = a.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && getComputedStyle(a).display !== 'none'; }) ? 1 : 0));
       assert.ok(n <= 1, `${u} at ${vp.width}px shows ${n} WhatsApp buttons`);
       if (u === '/') assert.equal(n, 1, 'home hero keeps its WhatsApp button');
       await page.close();
