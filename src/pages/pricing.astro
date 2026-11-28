@@ -12,13 +12,18 @@ const faqs = getFaqs(['minimum-booking', 'faces-per-hour', 'planning', 'packages
 const included = ['Professional face paints, cosmetic glitters & make-up', 'All brushes, sponges & hygiene supplies', 'Design boards for guests to choose from', 'Friendly, DBS-checked & insured artist', 'Set-up and pack-down (not counted in your booked time)'];
 ---
 <Base title="Face Painting Prices London | Parties from £160" description="Face painting prices in London: private parties from £160 (2 hrs), corporate events from £190 and weddings from £320. All materials included. Get a tailored quote on WhatsApp." schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'Pricing', path: '/pricing/' }])]} heroCta>
-  <PageHero eyebrow="Pricing" title="Simple, transparent pricing" lead="All prices include make-up, face paints, cosmetic glitters and materials. Every event is different, so message us for a tailored quote." crumbs={[{ name: 'Pricing', path: '/pricing/' }]} />
+  <PageHero eyebrow="Pricing" title="Simple, transparent pricing" lead="All paints, glitter and materials included." crumbs={[{ name: 'Pricing', path: '/pricing/' }]} />
 
-  <section class="section">
+  <section class="section plans-section">
     <div class="wrap">
+      <ul class="summary" aria-label="Starting prices">
+        {pricing.map((p, i) => (
+          <li><a href={`#plan-${i}`}><span class="s-name">{p.name}</span><span class="s-price"><small>from</small> £{p.price}</span><span class="s-meta">{p.hours} hrs min</span></a></li>
+        ))}
+      </ul>
       <ul class="plans">
-        {pricing.map((p) => (
-          <li class:list={['plan', { popular: p.popular }]} data-reveal>
+        {pricing.map((p, i) => (
+          <li id={`plan-${i}`} class:list={['plan', { popular: p.popular }]} data-reveal>
             {p.popular && <span class="tag">Most booked</span>}
             <h2>{p.name}</h2>
             <p class="price"><small>from</small> £{p.price}</p>
@@ -75,6 +80,16 @@ const included = ['Professional face paints, cosmetic glitters & make-up', 'All 
   <CtaBand />
 </Base>
 <style>
+  .plans-section { padding-top: 20px; }
+  .summary { list-style: none; margin: 0 0 28px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .summary a { display: grid; gap: 2px; padding: 14px 8px; text-align: center; text-decoration: none; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper); }
+  .summary li:first-child a { border-color: rgba(155,47,217,.65); background: linear-gradient(160deg, rgba(106,47,224,.22), var(--paper)); }
+  .s-name { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .s-price { font-family: var(--font-head); font-size: 1.7rem; line-height: 1.1; }
+  .s-price small { font-family: var(--font-body); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .s-meta { font-size: .78rem; color: var(--pink-text); }
+  .plan { scroll-margin-top: 90px; }
+  @media (min-width: 900px) { .summary { display: none; } }
   .plans { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
   .plan { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 36px 30px; border-radius: var(--radius-lg); background: var(--paper); border: 1px solid var(--line); }
   .plan.popular { background: linear-gradient(160deg, rgba(106,47,224,.22), rgba(195,39,159,.1) 45%, var(--paper) 75%); border-color: rgba(155,47,217,.65); box-shadow: 0 30px 70px -30px rgba(155,47,217,.6); }

@@ -8,7 +8,7 @@ import { faqSchema, breadcrumbSchema } from '../lib/schema';
 const groups = ['Booking', 'On the day', 'Safety & products'] as const;
 ---
 <Base title="Face Painting FAQs | Booking, Safety & Products" description="Answers to common questions about booking a face painter in London: minimum booking, how many faces per hour, set-up, age policy, skin-safe products and paint removal." schema={[faqSchema(faqs), breadcrumbSchema([{ name: 'FAQs', path: '/faqs/' }])]}>
-  <PageHero eyebrow="FAQs" title="Frequently asked questions" lead="If you can't find what you're looking for, message us on WhatsApp. We're always happy to help!" crumbs={[{ name: 'FAQs', path: '/faqs/' }]} />
+  <PageHero eyebrow="FAQs" title="Frequently asked questions" lead="Can't find your answer? Message us on WhatsApp." crumbs={[{ name: 'FAQs', path: '/faqs/' }]} />
   <section class="section">
     <div class="wrap narrow">
       {groups.map((g) => (<div class="group"><h2>{g}</h2><FaqList items={faqs.filter((f) => f.group === g)} /></div>))}
