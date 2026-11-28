@@ -12,11 +12,10 @@ const order = ['kids', 'adults', 'glitter-bar', 'glitter-tattoos', 'seasonal', '
 const items = [...gallery].sort((a, b) => Number(!!b.featured) - Number(!!a.featured) || order.indexOf(a.category) - order.indexOf(b.category));
 ---
 <Base title="Face Painting Gallery | Kids, Adults, Glitter & Halloween Designs" description="Browse our face painting portfolio: children's designs, adult face art, glitter bar looks, glitter tattoos and Halloween & Day of the Dead designs from London events." schema={[breadcrumbSchema([{ name: 'Gallery', path: '/gallery/' }])]}>
-  <PageHero eyebrow="Portfolio" title="Gallery" lead="Real designs from real London parties and events. Tap any photo to see it larger, or filter by style." crumbs={[{ name: 'Gallery', path: '/gallery/' }]} />
+  <PageHero compact title="Gallery" lead="Real designs from London parties and events. Tap a photo to see it larger." crumbs={[{ name: 'Gallery', path: '/gallery/' }]} cta={false} />
   <section class="section deck-section">
     <div class="wrap center">
-      <p class="eyebrow">Favourites</p>
-      <h2>A wall of <em>sparkle</em></h2>
+      <h2 class="sr-only">Favourite designs</h2>
       <GalleryWall items={mix(42)} rows={3} />
     </div>
   </section>
@@ -39,8 +38,7 @@ const items = [...gallery].sort((a, b) => Number(!!b.featured) - Number(!!a.feat
 </Base>
 <style>
   .head { margin-bottom: 40px; }
-  .deck-section { padding-bottom: 0; }
-  .deck-section h2 { margin-bottom: 28px; }
+  .deck-section { padding-top: 18px; padding-bottom: 0; }
   .vids { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); max-width: 960px; margin-inline: auto; }
   .vids :global(.video-loop) { aspect-ratio: 9/16; }
   .vids p { margin: 10px 0 0; font-size: .92rem; color: var(--muted-on-dark); text-align: center; }
